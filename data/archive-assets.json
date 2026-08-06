@@ -1,5 +1,5 @@
 {
-  "version": "1.2.3",
+  "version": "1.2.4",
   "generatedFor": "Belt Theory Authentic Archive production homepage",
   "policy": "Real people and real wrestling history use authentic photography. AI remains decorative and may not cross into a photographed person, clothing, hands, body or championship belt.",
   "assets": [
@@ -43,7 +43,6 @@
       "id": "BT-GENERAL-001",
       "slug": "wwe-tcc-raw-2007",
       "remoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/TCCwrestling.jpg",
-      "prototypeRemoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Vince%20McMahon%20Sr_and%20Vince%20McMahon%20Jr.jpg",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0e/TCCwrestling.jpg",
       "sourcePage": "https://commons.wikimedia.org/wiki/File:TCCwrestling.jpg",
       "creator": "JBZA2003",
@@ -56,13 +55,7 @@
       "originalWidth": 800,
       "widths": [400, 800],
       "defaultWidth": 800,
-      "changes": "Wikimedia-generated responsive resize and CSS object-position crop; no pixel retouching or generative alteration; derivatives remain CC BY-SA 2.5.",
-      "prototypeTextReplacements": [
-        ["Vince McMahon Sr. standing beside Vince McMahon Jr. during the ownership-transition era.", "A crowd and arena view during WWE Raw Live at the Tucson Convention Center in July 2007."],
-        ["Ownership transition · circa 1979–1984", "WWE Raw Live · Tucson Convention Center · July 30, 2007"],
-        ["https://commons.wikimedia.org/wiki/File:Vince_McMahon_Sr_and_Vince_McMahon_Jr.jpg", "https://commons.wikimedia.org/wiki/File:TCCwrestling.jpg"],
-        ["Public-domain source", "JBZA2003 · CC BY-SA 2.5"]
-      ]
+      "changes": "Wikimedia-generated responsive resize and CSS object-position crop; no pixel retouching or generative alteration; derivatives remain CC BY-SA 2.5."
     },
     {
       "id": "BT-AEW-003",
