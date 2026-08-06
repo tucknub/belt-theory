@@ -7,10 +7,13 @@ const root = path.resolve(here, '..');
 const outputRoot = path.resolve(process.argv[2] || path.join(root, 'dist'));
 const manifest = JSON.parse(await readFile(path.join(root, 'data', 'archive-assets.json'), 'utf8'));
 const sourcePrototype = await readFile(path.join(root, 'prototype', 'authentic-home.html'), 'utf8');
+const protectionSource = await readFile(path.join(root, 'prototype', 'authentic-subject-protection.css'), 'utf8');
 const homepagePath = path.join(outputRoot, 'prototype', 'authentic-home.html');
 const creditsPath = path.join(outputRoot, 'prototype', 'image-credits.html');
+const protectionPath = path.join(outputRoot, 'prototype', 'authentic-subject-protection.css');
 const homepage = await readFile(homepagePath, 'utf8');
 const credits = await readFile(creditsPath, 'utf8');
+const protectionBuilt = await readFile(protectionPath, 'utf8');
 const failures = [];
 const prohibitedIds = new Set(['BT-WWE-002', 'BT-WWE-003', 'BT-ECW-001', 'BT-ECW-002']);
 const prohibitedSourceFragments = [
@@ -24,6 +27,13 @@ const prohibitedSourceFragments = [
 for (const fragment of prohibitedSourceFragments) {
   if (sourcePrototype.includes(fragment)) failures.push(`Source prototype contains prohibited or context-restricted imagery: ${fragment}`);
   if (homepage.includes(fragment)) failures.push(`Built homepage contains prohibited or context-restricted imagery: ${fragment}`);
+}
+if (!sourcePrototype.includes('authentic-subject-protection.css')) failures.push('Source prototype is missing the authentic subject-protection stylesheet.');
+if (!homepage.includes('authentic-subject-protection.css')) failures.push('Built homepage is missing the authentic subject-protection stylesheet.');
+for (const css of [protectionSource, protectionBuilt]) {
+  if (!css.includes('.credit') || !css.includes('position: static')) failures.push('Subject-protection CSS does not keep credits outside photo pixels.');
+  if (!css.includes('.cover-copy') || !css.includes('grid-column: 1')) failures.push('Subject-protection CSS does not separate the hero copy from the photograph.');
+  if (!css.includes('filter: none')) failures.push('Subject-protection CSS does not explicitly preserve authentic image pixels.');
 }
 if (/src(set)?="https?:\/\//i.test(homepage)) failures.push('Homepage still contains a remote image src or srcset.');
 if (homepage.includes('Special:Redirect/file/')) failures.push('Homepage still contains Wikimedia redirect hotlinks.');
@@ -58,4 +68,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log(`Authentic Archive verified: source and built output use ${manifest.assets.length} approved self-hosted historical assets, with no hotlinks, jurisdiction-limited scans or rejected ECW imagery.`);
+console.log(`Authentic Archive verified: source and built output use ${manifest.assets.length} approved self-hosted historical assets, with separate editorial framing and no hotlinks, jurisdiction-limited scans or rejected ECW imagery.`);
