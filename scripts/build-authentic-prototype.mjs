@@ -23,34 +23,6 @@ const archiveCss = `${baseCss}
 await writeFile(path.join(prototypeOut, 'authentic-home.css'), archiveCss);
 
 let html = await readFile(path.join(root, 'prototype', 'authentic-home.html'), 'utf8');
-
-// Migration safeguard: the first review prototype used a magazine scan whose
-// public-domain analysis is clearly U.S.-specific. The global build removes it
-// before any browser-facing output is written and uses a verified WWE Raw crowd
-// photograph instead. This block can be deleted after the source prototype is
-// permanently updated to BT-GENERAL-001.
-const reviewOnlyReplacements = [
-  [
-    'https://commons.wikimedia.org/wiki/Special:Redirect/file/Vince%20McMahon%20Sr_and_Vince%20McMahon%20Jr.jpg',
-    'https://commons.wikimedia.org/wiki/Special:Redirect/file/TCCwrestling.jpg'
-  ],
-  [
-    'Vince McMahon Sr. standing beside Vince McMahon Jr. during the ownership-transition era.',
-    'A crowd and arena view during WWE Raw Live at the Tucson Convention Center in July 2007.'
-  ],
-  ['Ownership transition · circa 1979–1984', 'WWE Raw Live · Tucson Convention Center · July 30, 2007'],
-  [
-    'https://commons.wikimedia.org/wiki/File:Vince_McMahon_Sr_and_Vince_McMahon_Jr.jpg',
-    'https://commons.wikimedia.org/wiki/File:TCCwrestling.jpg'
-  ],
-  ['Public-domain source', 'JBZA2003 · CC BY-SA 2.5'],
-  [
-    'Triple H reduced churn and clarified much of the championship architecture. The historical photographs keep the comparison grounded in the people and ownership systems that made those decisions.',
-    'Triple H reduced churn and clarified much of the championship architecture. The authentic arena photograph grounds that analysis in WWE’s live presentation and audience environment without fabricating a historical ownership scene.'
-  ]
-];
-for (const [from, to] of reviewOnlyReplacements) html = html.replaceAll(from, to);
-
 for (const asset of manifest.assets) {
   const focus = focalPoints[asset.id];
   if (!focus) throw new Error(`Missing protected focal points for ${asset.id}`);
