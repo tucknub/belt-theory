@@ -1,36 +1,42 @@
-# Era Theory v1 QA
+# Era Theory v2 QA
+
+## Scope
+
+The prototype now has two routes:
+
+- `/` — Era Theory umbrella homepage and report library
+- `/reports/colts/` — Colts Era Lab interactive report
 
 ## Visual target
 
-The approved concept established a dark navy sports-documentary interface with a strong verdict-first hero, era scorecards, radar comparison, quarterback timeline, draft and transaction modules, and a sensitivity lab.
+The approved direction established a dark navy sports-documentary interface with verdict-first reporting, strong typography, scorecards, comparative charts, timelines, and interactive model testing.
 
 ## Intentional production deviations
 
 - Removed AI-generated lookalikes of Bill Polian, Ryan Grigson, and Chris Ballard.
-- Removed the simulated Colts horseshoe and other unlicensed team marks.
+- Removed simulated Colts marks and synthetic documentary scenes.
 - Replaced those elements with abstract stadium geometry, Indianapolis-inspired city forms, typography, and data visualization.
 - Authentic licensed/editorial imagery can be added later without changing the page structure.
 
-## Verified comparison points
+## Static verification completed
 
-1. Verdict-first hero, three era scores, and report metadata preserved.
-2. Dark blue, silver, and electric-blue palette preserved without copied team marks.
-3. Three scorecards and seven-dimension radar comparison implemented.
-4. Quarterback, draft, transaction, contradiction, and future-update chapters implemented.
-5. Sensitivity lab is interactive rather than a static mockup.
-6. Desktop navigation and mobile menu verified.
-7. No horizontal overflow at 1536 × 1000 or 390 × 844.
+1. `npm run build`
+2. `npm run verify`
+3. JavaScript syntax checks for `app.js` and `home.js`
+4. Duplicate-ID scan for both HTML routes
+5. Relative asset and route link scan for both HTML routes
+6. Homepage markers, report markers, and interaction-code markers verified
 
-## Interaction checks
+## Interaction implementation retained
 
-- Methodology dialog opens and closes.
-- Preset model selection updates weights.
-- Custom slider weights are normalized before scoring.
-- Drafting + transactions selects Chris Ballard.
-- Roster + resilience selects Ryan Grigson.
-- Reset restores published weights and Bill Polian.
+- Methodology dialog
+- Mobile navigation on both routes
+- Preset sensitivity models
+- Custom slider-weight normalization
+- Drafting + transactions stress test selects Chris Ballard
+- Roster + resilience stress test selects Ryan Grigson
+- Reset restores the published Bill Polian model
 
-## Build checks
+## Environment limitation
 
-- `npm run build`
-- `npm run verify`
+The current browser runtime blocked local and file URL navigation, so the new umbrella route could not receive a fresh screenshot pass in this environment. The earlier Colts report screenshots remain available, and all new routes and assets pass static verification. A final browser pass is required before public deployment.
