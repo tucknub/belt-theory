@@ -53,6 +53,10 @@ fi
 # Authentic Archive review build. Approved Commons originals are fetched during
 # the build and saved under Belt Theory's own output paths. Browser markup uses
 # only local URLs; source and license URLs remain visible in the credits page.
+for script in scripts/*archive*.mjs scripts/verify-rights-ledger.mjs; do
+  node --check "$script"
+done
+node scripts/verify-rights-ledger.mjs
 node scripts/fetch-archive-assets.mjs "$OUTPUT"
 node scripts/build-authentic-prototype.mjs "$OUTPUT"
 node scripts/verify-authentic-prototype.mjs "$OUTPUT"
