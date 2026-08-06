@@ -1,0 +1,63 @@
+name: Authentic Archive review
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'IMAGE_RIGHTS_LEDGER.csv'
+      - 'AI_DESIGN_ASSET_LEDGER.csv'
+      - 'VISUAL_DIRECTION.md'
+      - 'DESIGN_PRESERVATION_RULE.md'
+      - 'REDESIGN_ROADMAP.md'
+      - 'ARCHIVE_REVIEW_STATUS.md'
+      - 'build.sh'
+      - 'package.json'
+      - 'release-parts/**'
+      - 'data/archive-*.json'
+      - 'prototype/**'
+      - 'scripts/*archive*.mjs'
+      - '.github/workflows/authentic-archive-review.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: authentic-archive-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-verify:
+    name: Build and verify archive edition
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out pull request
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build production and authentic archive review
+        run: npm run build
+
+      - name: Summarize generated review surface
+        run: |
+          echo "## Authentic Archive review artifact" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Production pages: $(find dist -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Archived image files: $(find dist/assets/archive -maxdepth 1 -type f ! -name 'manifest.json' | wc -l | tr -d ' ')" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Homepage proof: \`dist/prototype/authentic-home.html\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Credits page: \`dist/prototype/image-credits.html\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "The pull request remains draft until desktop and 390px visual review is completed." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload complete review build
+        uses: actions/upload-artifact@v4
+        with:
+          name: belt-theory-authentic-archive-review
+          path: dist
+          if-no-files-found: error
+          retention-days: 7
