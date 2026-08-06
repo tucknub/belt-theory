@@ -9,7 +9,7 @@ The production homepage remains the approved v1.1 page. The retrofit changes onl
 ## Implemented image map
 
 - Hero — BT-AEW-001, AEW All In 2023 at Wembley Stadium
-- WWE scorecard card — BT-WWE-002, Vince McMahon Sr. and Vince McMahon Jr.
+- WWE scorecard card — BT-GENERAL-001, WWE Raw Live at the Tucson Convention Center in 2007
 - AEW scorecard card — BT-AEW-003, Sting and Darby Allin at All In 2023
 - TNA scorecard card — BT-TNA-001, Raven at a TNA Impact taping in 2010
 - WCW scorecard card — BT-WCW-003, Diamond Dallas Page as WCW World Heavyweight Champion
@@ -17,22 +17,23 @@ The production homepage remains the approved v1.1 page. The retrofit changes onl
 - WWE vs. AEW comparison card — BT-WWE-001 and BT-AEW-001
 - TNA investigation evidence — BT-TNA-003, Raven and Tommy Dreamer at a TNA Impact taping in 2010
 
-## Removed
+## Removed or prohibited
 
 - All `images.unsplash.com` wrestling-background dependencies from the built production CSS
 - Generic shared wrestling imagery from the promotion scorecards
 - Image-like background treatment from comparison cards that do not have an approved historical photo pairing
 - The rejected WWE-era ECW belt and 2006 WWE-era ECW Paul Heyman imagery
+- The Vince McMahon magazine scans, whose Commons public-domain analysis is explicitly United States-specific and is not sufficient for worldwide production distribution
 
 ## Added
 
 - Local responsive `srcset` records under `assets/archive/`
-- Visible creator/license/event credits
+- Visible creator, license, event and date credits
 - Separate desktop and mobile focal points
 - Root-level `image-credits.html`
 - Authentic-image-policy metadata
 - Automated preservation checks for production navigation and principal homepage copy
-- Automated checks for remote image URLs, missing alt text, missing derivatives, missing source/license links and prohibited ECW assets
+- Automated checks for remote image URLs, missing alt text, missing derivatives, missing source/license links, jurisdiction-limited records and prohibited ECW assets
 
 ## Structural QA completed
 
