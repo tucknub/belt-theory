@@ -14,3 +14,5 @@ The gate must:
 - Upload the complete `dist` directory as a review artifact
 
 The branch remains draft-only until the generated desktop and 390-pixel crops are visually reviewed.
+
+CI review trigger refreshed after the workflow was installed on `main`.
