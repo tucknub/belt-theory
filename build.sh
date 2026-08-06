@@ -44,24 +44,28 @@ for path in "${required[@]}"; do
   fi
 done
 
-PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')"
-if [[ "$PAGE_COUNT" != "17" ]]; then
-  echo "Expected 17 HTML pages; found $PAGE_COUNT." >&2
+BASE_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')"
+if [[ "$BASE_PAGE_COUNT" != "17" ]]; then
+  echo "Expected 17 base HTML pages; found $BASE_PAGE_COUNT." >&2
   exit 1
 fi
 
-# Authentic Archive review build. Approved Commons originals are fetched during
-# the build and saved under Belt Theory's own output paths. Browser markup uses
-# only local URLs; source and license URLs remain visible in the credits page.
-for script in scripts/*archive*.mjs scripts/verify-rights-ledger.mjs; do
+# Authentic Archive build. Approved Commons originals are fetched during the
+# build and saved under Belt Theory's own output paths. Browser markup uses only
+# local URLs; source and license URLs remain visible in the credits pages.
+for script in scripts/*archive*.mjs scripts/verify-rights-ledger.mjs scripts/retrofit-production-home.mjs scripts/verify-production-home.mjs; do
   node --check "$script"
 done
 node scripts/verify-rights-ledger.mjs
 node scripts/fetch-archive-assets.mjs "$OUTPUT"
 node scripts/build-authentic-prototype.mjs "$OUTPUT"
+node scripts/retrofit-production-home.mjs "$OUTPUT"
 node scripts/verify-authentic-prototype.mjs "$OUTPUT"
+node scripts/verify-production-home.mjs "$OUTPUT"
 
 for path in \
+  index.html \
+  image-credits.html \
   prototype/authentic-home.html \
   prototype/authentic-home.css \
   prototype/image-credits.html \
@@ -72,8 +76,18 @@ for path in \
   fi
 done
 
-echo "Belt Theory v1.2 Authentic Archive review build succeeded."
+FINAL_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')"
+if [[ "$FINAL_PAGE_COUNT" != "18" ]]; then
+  echo "Expected 18 final production HTML pages; found $FINAL_PAGE_COUNT." >&2
+  exit 1
+fi
+
+python "$OUTPUT/scripts/verify.py"
+
+echo "Belt Theory v1.2 Authentic Archive build succeeded."
 echo "Output: $OUTPUT"
-echo "Production HTML pages: $PAGE_COUNT"
+echo "Production HTML pages: $FINAL_PAGE_COUNT"
+echo "Production homepage: $OUTPUT/index.html"
+echo "Production credits: $OUTPUT/image-credits.html"
 echo "Archive prototype: $OUTPUT/prototype/authentic-home.html"
 echo "Release SHA-256: $ACTUAL_SHA256"
