@@ -1,0 +1,60 @@
+name: Authentic Archive review
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'build.sh'
+      - 'package.json'
+      - 'prototype/**'
+      - 'data/archive-*.json'
+      - 'scripts/*archive*.mjs'
+      - 'IMAGE_RIGHTS_LEDGER.csv'
+      - 'AI_DESIGN_ASSET_LEDGER.csv'
+      - 'DESIGN_PRESERVATION_RULE.md'
+      - 'VISUAL_DIRECTION.md'
+      - 'REDESIGN_ROADMAP.md'
+      - '.github/workflows/authentic-archive-review.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out review branch
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build production and Authentic Archive review
+        run: npm run build
+
+      - name: Verify generated archive manifest
+        run: |
+          test -f dist/assets/archive/manifest.json
+          node -e "const m=require('./dist/assets/archive/manifest.json'); if(m.assets.length!==8) process.exit(1); console.log('Verified',m.assets.length,'archival assets')"
+
+      - name: Summarize review output
+        run: |
+          echo '## Authentic Archive review build' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Production pages: 17' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Archival homepage: `prototype/authentic-home.html`' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Credits page: `prototype/image-credits.html`' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Rights-approved assets: 8' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Browser image hotlinks: prohibited by verification script' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Rejected WWE-era ECW images: prohibited by verification script' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload complete preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: belt-theory-authentic-archive-preview
+          path: dist
+          if-no-files-found: error
+          retention-days: 14
