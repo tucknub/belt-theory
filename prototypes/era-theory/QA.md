@@ -2,14 +2,14 @@
 
 ## Scope
 
-The prototype now has two routes:
+The prototype has two routes:
 
 - `/` — Era Theory umbrella homepage and report library
 - `/reports/colts/` — Colts Era Lab interactive report
 
 ## Visual target
 
-The approved direction established a dark navy sports-documentary interface with verdict-first reporting, strong typography, scorecards, comparative charts, timelines, and interactive model testing.
+The selected direction established a dark navy sports-documentary interface with verdict-first reporting, strong typography, scorecards, comparative charts, timelines, and interactive model testing.
 
 ## Intentional production deviations
 
@@ -18,25 +18,36 @@ The approved direction established a dark navy sports-documentary interface with
 - Replaced those elements with abstract stadium geometry, Indianapolis-inspired city forms, typography, and data visualization.
 - Authentic licensed/editorial imagery can be added later without changing the page structure.
 
-## Static verification completed
+## Browser verification
 
-1. `npm run build`
-2. `npm run verify`
-3. JavaScript syntax checks for `app.js` and `home.js`
-4. Duplicate-ID scan for both HTML routes
-5. Relative asset and route link scan for both HTML routes
-6. Homepage markers, report markers, and interaction-code markers verified
+The runtime blocks direct `localhost` navigation, so Playwright Chromium loaded the completed production HTML, CSS, and JavaScript inline for the visual and interaction pass. The shipped files were not altered for testing.
 
-## Interaction implementation retained
+Checked viewports:
 
-- Methodology dialog
-- Mobile navigation on both routes
-- Preset sensitivity models
-- Custom slider-weight normalization
-- Drafting + transactions stress test selects Chris Ballard
-- Roster + resilience stress test selects Ryan Grigson
-- Reset restores the published Bill Polian model
+- Desktop: 1536 × 1000
+- Mobile: 390 × 844
 
-## Environment limitation
+Verified:
 
-The current browser runtime blocked local and file URL navigation, so the new umbrella route could not receive a fresh screenshot pass in this environment. The earlier Colts report screenshots remain available, and all new routes and assets pass static verification. A final browser pass is required before public deployment.
+1. Umbrella homepage and Colts report render without JavaScript console errors.
+2. Neither route has horizontal overflow on desktop or mobile.
+3. Homepage mobile navigation opens correctly.
+4. Colts mobile navigation opens correctly.
+5. Methodology dialog opens and closes.
+6. Drafting + transactions stress test selects Chris Ballard.
+7. Roster + resilience stress test selects Ryan Grigson.
+8. Published model loads Bill Polian first.
+9. The homepage hero proof strip no longer overlaps the call-to-action buttons.
+
+## Static verification
+
+- `npm run build`
+- `npm run verify`
+- JavaScript syntax checks
+- Duplicate-ID checks
+- Relative route and asset checks
+- Homepage, report, and interaction markers
+
+## Publication status
+
+The code is release-ready. A dedicated repository and authenticated hosting target remain infrastructure requirements, not product or QA defects.
