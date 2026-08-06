@@ -12,6 +12,24 @@ The binding preservation rules are defined in `DESIGN_PRESERVATION_RULE.md`.
 
 **Belt Theory v1.2 — Authentic Archive Edition**
 
+## Progress snapshot — August 6, 2026
+
+- [x] Rights and AI-design ledgers
+- [x] Source/date audit and jurisdiction review
+- [x] Responsive self-hosting pipeline and focal-point controls
+- [x] Production homepage
+- [x] TNA scorecard
+- [x] TNA star-creation report
+- [x] TNA vs. AEW comparison
+- [ ] WWE scorecard
+- [ ] AEW scorecard
+- [ ] WCW scorecard
+- [ ] Original ECW scorecard
+- [ ] WWE vs. AEW comparison
+- [ ] WWE vs. WCW vs. ECW comparison
+- [ ] Real-derivative desktop/mobile crop review
+- [ ] Final accessibility, performance and canonical-number audit
+
 The release must preserve:
 
 - approved page architecture
@@ -201,10 +219,10 @@ A page cannot merge until it passes:
 
 ## Planned implementation order
 
-1. Homepage image retrofit
-2. TNA scorecard
-3. TNA star-creation report
-4. TNA vs. AEW
+1. Homepage image retrofit — implemented
+2. TNA scorecard — implemented
+3. TNA star-creation report — implemented
+4. TNA vs. AEW — implemented
 5. WWE scorecard
 6. AEW scorecard
 7. WCW scorecard
