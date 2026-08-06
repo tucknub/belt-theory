@@ -46,7 +46,7 @@ html = html.replace(
 );
 
 const cardReplacements = [
-  ['scorecard-wwe.html', 'BT-WWE-002', 'WWE'],
+  ['scorecard-wwe.html', 'BT-GENERAL-001', 'WWE'],
   ['scorecard-aew.html', 'BT-AEW-003', 'AEW'],
   ['scorecard-tna.html', 'BT-TNA-001', 'TNA / Impact'],
   ['scorecard-wcw.html', 'BT-WCW-003', 'WCW'],
