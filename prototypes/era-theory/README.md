@@ -1,8 +1,16 @@
 # Era Theory
 
-Era Theory is a reusable sports-leadership analysis site. Its first report, **Colts Era Lab**, turns the completed 1998–2025 Indianapolis Colts front-office research workbook into a visual, interactive story.
+Era Theory is a reusable sports-leadership analysis site. It turns complete research workbooks into visual, interactive reports without pretending every sport should use the same scoring model.
 
-## Report 001
+## Site structure
+
+- `/` — Era Theory umbrella homepage and report library
+- `/reports/colts/` — Report 001: Colts Era Lab
+- `REPORT_TEMPLATE.md` — requirements and route rules for future reports
+
+## Report 001: Colts Era Lab
+
+The completed 1998–2025 Indianapolis Colts front-office study compares Bill Polian, Ryan Grigson, and Chris Ballard.
 
 - Bill Polian: 70.5
 - Ryan Grigson: 61.1
@@ -23,11 +31,11 @@ npm run verify
 npm run start
 ```
 
-Open `http://localhost:4173`.
+Open `http://localhost:4173` for the homepage and `http://localhost:4173/reports/colts/` for Report 001.
 
 ## Deployment
 
-The output directory is `dist`. It can be deployed to Cloudflare Pages with:
+The output directory is `dist`.
 
 - Build command: `npm run build`
 - Output directory: `dist`
@@ -35,6 +43,6 @@ The output directory is `dist`. It can be deployed to Cloudflare Pages with:
 
 ## Research source
 
-The full native Google Sheet remains the evidence base:
+The complete native Google Sheet remains the evidence base:
 
 https://docs.google.com/spreadsheets/d/1Zl42YOhVsX5eMijGNVE1irY-5r5eUJ32es7rifFD3Hk/edit
