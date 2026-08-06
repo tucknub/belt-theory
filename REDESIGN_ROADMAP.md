@@ -21,12 +21,13 @@ The binding preservation rules are defined in `DESIGN_PRESERVATION_RULE.md`.
 - [x] WWE scorecard
 - [x] AEW scorecard
 - [x] TNA scorecard
+- [x] WCW scorecard
+- [x] Original ECW scorecard
 - [x] TNA star-creation report
 - [x] TNA vs. AEW comparison
-- [ ] WCW scorecard
-- [ ] Original ECW scorecard
 - [ ] WWE vs. AEW comparison
 - [ ] WWE vs. WCW vs. ECW comparison
+- [ ] Research, methodology, about and policy image surfaces
 - [ ] Real-derivative desktop/mobile crop review
 - [ ] Final accessibility, performance and canonical-number audit
 
@@ -56,26 +57,19 @@ Start from the approved production homepage. Preserve its composition, typograph
 
 `prototype/authentic-home.html` remains a photo-component and crop test, not an automatic replacement homepage.
 
-## Phase 3 — Five scorecard image packages
+## Phase 3 — Five scorecard image packages — implemented
 
 1. TNA — implemented
 2. WWE — implemented
 3. AEW — implemented
-4. WCW — next
-5. Original ECW — pending
+4. WCW — implemented
+5. Original ECW — implemented
 
-For each scorecard:
-
-- preserve the approved scorecard structure
-- replace the hero and historical image surfaces
-- add real promotion-specific photographs
-- add visible credits and context
-- maintain existing metrics, verdicts and data modules
-- avoid turning the page into a generic photo gallery
+Each scorecard preserves the approved structure, metrics, verdicts and source links while using promotion-specific photography with visible credits outside the photographed pixels.
 
 ## Phase 4 — Comparison report image packages
 
-### WWE vs. AEW
+### WWE vs. AEW — next
 
 - one authentic image per promotion in the existing split treatment
 - matched image categories where rights-cleared assets exist
@@ -86,7 +80,7 @@ For each scorecard:
 - authentic TNA and AEW records remain independent source frames
 - existing blue/gold comparison atmosphere remains outside the photographs
 
-### WWE vs. WCW vs. ECW
+### WWE vs. WCW vs. ECW — pending
 
 - era-correct authentic images inside the existing three-promotion structure
 - print and broadcast textures may remain as decoration
@@ -142,12 +136,11 @@ A page cannot merge until it passes:
 
 ## Next implementation order
 
-1. WCW scorecard
-2. Original ECW scorecard
-3. WWE vs. AEW
-4. WWE vs. WCW vs. ECW
-5. Research, methodology, about and policy image surfaces
-6. Full credits-page expansion and final audit
+1. WWE vs. AEW
+2. WWE vs. WCW vs. ECW
+3. Research, methodology, about and policy image surfaces
+4. Full credits-page expansion and final audit
+5. Connected build and real-photo crop review
 
 ## Definition of complete
 
