@@ -1,0 +1,31 @@
+@media (max-width: 1180px) {
+  .desktop-nav { display: none; }.menu-button { display: block; }.header-action { display: none; }
+  .hero { min-height: 820px; }.hero-content { width: 68vw; }
+  .hero-scoreboard { width: 48vw; top: 53%; }
+  .scorecard-layout { grid-template-columns: 1fr; }.radar-panel { max-width: 720px; width: 100%; margin-inline: auto; }
+  .narrative-grid { grid-template-columns: 1fr 1fr; }.chapter.wide { grid-column: 1/-1; }.contradiction { grid-column: 1/-1; }
+}
+@media (max-width: 820px) {
+  .site-header { height: 64px; }.brand-copy small { display: none; }.brand { min-width: unset; }.mobile-nav { top: 64px; }
+  .hero { min-height: 920px; }.hero::after { inset: 44% -15% 15% 15%; }.hero-grid { width: 100%; right: -30%; top: 35%; }
+  .hero-content { width: auto; padding: 5rem 1.25rem 0; }.hero h1 { font-size: clamp(3rem, 13vw, 5rem); }
+  .hero-scoreboard { position: relative; right: auto; top: auto; width: calc(100% - 2.5rem); margin: 3rem 1.25rem 90px; }
+  .hero-city { width: 100%; bottom: 54px; }
+  .hero-era-strip { grid-template-columns: 1fr; height: auto; }.era-block { min-height: 40px; }.era-block:not(:first-child) { display: none; }
+  .section-heading.split { display: block; }.legend, .section-intro { margin-top: 1rem; }
+  .verdict-layout, .sensitivity-layout { grid-template-columns: 1fr; }
+  .scorecards { grid-template-columns: 1fr; }
+  .narrative-grid { grid-template-columns: 1fr; }.chapter.wide, .contradiction { grid-column: auto; }
+  .future-section { grid-template-columns: 1fr; }.future-section ul { columns: 1; }
+  .robustness-strip { grid-template-columns: 1fr; }.robustness-strip div { border-right: 0; border-bottom: 1px solid var(--line); }
+  footer { grid-template-columns: 1fr; } footer p { text-align: left; }
+}
+@media (max-width: 540px) {
+  .brand-mark { width: 36px; height: 36px; }.brand-copy strong { font-size: 1.1rem; }.site-header { gap: .75rem; }
+  .hero { min-height: 930px; }.hero-stats { display: grid; grid-template-columns: 1fr 1fr; }
+  .hero-scoreboard { grid-template-columns: 1fr; }.score-pillar { border-right: 0; border-bottom: 1px solid var(--line); grid-template-columns: 1fr auto; justify-items: start; align-items: center; }.score-pillar small { grid-column: 1/-1; }
+  .rank-lines article { grid-template-columns: 42px 1fr; }.rank-lines article > strong { grid-column: 2; }
+  .two-column-list, .contradiction-columns { grid-template-columns: 1fr; }
+  .model-bar-row { grid-template-columns: 90px 1fr 45px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
