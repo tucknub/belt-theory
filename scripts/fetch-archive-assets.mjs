@@ -15,6 +15,7 @@ const requestTimeoutMs = 30_000;
 await mkdir(outputDir, { recursive: true });
 
 function thumbnailUrl(originalUrl, width) {
+  if (!originalUrl) return null;
   const filename = originalUrl.split('/').at(-1);
   return `${originalUrl.replace('/wikipedia/commons/', '/wikipedia/commons/thumb/')}/${width}px-${filename}`;
 }
@@ -90,9 +91,11 @@ async function downloadVariant(asset, width, target) {
   const candidates = useOriginal
     ? [asset.originalUrl, redirectUrl(asset, asset.originalWidth)]
     : [thumbnailUrl(asset.originalUrl, width), redirectUrl(asset, width)];
+  const uniqueCandidates = [...new Set(candidates.filter(Boolean))];
+  if (!uniqueCandidates.length) throw new Error(`No download URL is available for ${asset.id} ${width}px`);
   const failures = [];
 
-  for (const url of [...new Set(candidates)]) {
+  for (const url of uniqueCandidates) {
     for (let attempt = 1; attempt <= 3; attempt += 1) {
       try {
         const { bytes, contentType, effectiveUrl } = await fetchBytes(url);
