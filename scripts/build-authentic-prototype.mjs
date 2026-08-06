@@ -11,6 +11,7 @@ const focalPoints = JSON.parse(await readFile(path.join(root, 'data', 'archive-f
 
 await mkdir(prototypeOut, { recursive: true });
 const baseCss = await readFile(path.join(root, 'prototype', 'authentic-home.css'), 'utf8');
+const protectionCss = await readFile(path.join(root, 'prototype', 'authentic-subject-protection.css'), 'utf8');
 const archiveCss = `${baseCss}
 
 /* Rights-aware responsive crop component. Generated atmosphere is kept outside
@@ -21,6 +22,7 @@ const archiveCss = `${baseCss}
 }
 `;
 await writeFile(path.join(prototypeOut, 'authentic-home.css'), archiveCss);
+await writeFile(path.join(prototypeOut, 'authentic-subject-protection.css'), protectionCss);
 
 let html = await readFile(path.join(root, 'prototype', 'authentic-home.html'), 'utf8');
 for (const asset of manifest.assets) {
