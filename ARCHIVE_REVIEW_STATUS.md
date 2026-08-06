@@ -2,21 +2,27 @@
 
 The draft branch is validated by `.github/workflows/authentic-archive-review.yml` on pull request updates and manual dispatches.
 
-## Completed implementation
+## Completed production surfaces
+
+- Production homepage
+- TNA championship-system scorecard
+- TNA star-creation investigation
+- TNA vs. AEW matched comparison
+- Root production photography-credits page
+- Archival component and crop prototype
+
+## Completed controls
 
 - Reconstruct the verified v1.1 production release
 - Verify the rights ledger before any archival download
-- Download eight approved authentic photographs during a connected build
-- Generate responsive Belt Theory-hosted derivatives
-- Generate the archival component prototype and credits page
-- Retrofit the approved production homepage without changing its navigation, copy, metrics or page structure
-- Generate a root production `image-credits.html`
-- Remove the generic Unsplash wrestling background from built production CSS
+- Generate responsive Belt Theory-hosted derivatives during a connected build
+- Retry, timeout, fallback, image-signature and pixel-dimension validation
 - Reject browser-facing image hotlinks
 - Reject missing alt text, source records, license links, ledger IDs or focal points
 - Reject the WWE-era ECW belt and 2006 WWE-era ECW imagery from original-ECW presentation
 - Reject the jurisdiction-limited Vince McMahon magazine scans from the global build
-- Verify the production retrofit structurally at 1536 × 1024 and 390 × 844
+- Preserve canonical navigation, copy, values and workbook links
+- Verify the implemented pages structurally at 1536 × 1024 and 390 × 844
 
 ## Rights decisions
 
