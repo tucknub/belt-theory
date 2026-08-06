@@ -19,6 +19,7 @@ scripts=(
   scripts/retrofit-wwe-scorecard.mjs scripts/verify-wwe-scorecard.mjs
   scripts/retrofit-aew-scorecard.mjs scripts/verify-aew-scorecard.mjs
   scripts/retrofit-tna-scorecard.mjs scripts/verify-tna-scorecard.mjs
+  scripts/retrofit-historical-scorecards.mjs scripts/verify-historical-scorecards.mjs
   scripts/retrofit-tna-investigation.mjs scripts/verify-tna-investigation.mjs
   scripts/retrofit-tna-vs-aew.mjs scripts/verify-tna-vs-aew.mjs
 )
@@ -31,6 +32,7 @@ node scripts/retrofit-production-home.mjs "$OUTPUT"
 node scripts/retrofit-wwe-scorecard.mjs "$OUTPUT"
 node scripts/retrofit-aew-scorecard.mjs "$OUTPUT"
 node scripts/retrofit-tna-scorecard.mjs "$OUTPUT"
+node scripts/retrofit-historical-scorecards.mjs "$OUTPUT"
 node scripts/retrofit-tna-investigation.mjs "$OUTPUT"
 node scripts/retrofit-tna-vs-aew.mjs "$OUTPUT"
 node scripts/verify-authentic-prototype.mjs "$OUTPUT"
@@ -38,16 +40,17 @@ node scripts/verify-production-home.mjs "$OUTPUT"
 node scripts/verify-wwe-scorecard.mjs "$OUTPUT"
 node scripts/verify-aew-scorecard.mjs "$OUTPUT"
 node scripts/verify-tna-scorecard.mjs "$OUTPUT"
+node scripts/verify-historical-scorecards.mjs "$OUTPUT"
 node scripts/verify-tna-investigation.mjs "$OUTPUT"
 node scripts/verify-tna-vs-aew.mjs "$OUTPUT"
 
-archive_pages=(index.html image-credits.html scorecard-wwe.html scorecard-aew.html scorecard-tna.html report-did-tna-create-stars.html report-tna-vs-aew.html prototype/authentic-home.html prototype/authentic-home.css prototype/image-credits.html assets/archive/manifest.json)
+archive_pages=(index.html image-credits.html scorecard-wwe.html scorecard-aew.html scorecard-tna.html scorecard-wcw.html scorecard-ecw.html report-did-tna-create-stars.html report-tna-vs-aew.html prototype/authentic-home.html prototype/authentic-home.css prototype/image-credits.html assets/archive/manifest.json)
 for path in "${archive_pages[@]}"; do [[ -f "$OUTPUT/$path" ]] || { echo "Missing Authentic Archive file: $path" >&2; exit 1; }; done
 FINAL_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')"
 [[ "$FINAL_PAGE_COUNT" == "18" ]] || { echo "Expected 18 final production HTML pages; found $FINAL_PAGE_COUNT." >&2; exit 1; }
 python "$OUTPUT/scripts/verify.py"
 echo "Belt Theory v1.2 Authentic Archive build succeeded."
 echo "Production HTML pages: $FINAL_PAGE_COUNT"
-echo "Authentic surfaces: homepage, WWE/AEW/TNA scorecards, TNA investigation, TNA vs. AEW"
+echo "Authentic surfaces: homepage, all five promotion scorecards, TNA investigation, TNA vs. AEW"
 echo "Production credits: $OUTPUT/image-credits.html"
 echo "Release SHA-256: $ACTUAL_SHA256"
