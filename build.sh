@@ -50,7 +50,26 @@ if [[ "$PAGE_COUNT" != "17" ]]; then
   exit 1
 fi
 
-echo "Belt Theory v1.1 built successfully."
+# Authentic Archive review build. Approved Commons originals are fetched during
+# the build and saved under Belt Theory's own output paths. Browser markup uses
+# only local URLs; source and license URLs remain visible in the credits page.
+node scripts/fetch-archive-assets.mjs "$OUTPUT"
+node scripts/build-authentic-prototype.mjs "$OUTPUT"
+node scripts/verify-authentic-prototype.mjs "$OUTPUT"
+
+for path in \
+  prototype/authentic-home.html \
+  prototype/authentic-home.css \
+  prototype/image-credits.html \
+  assets/archive/manifest.json; do
+  if [[ ! -f "$OUTPUT/$path" ]]; then
+    echo "Missing Authentic Archive file: $path" >&2
+    exit 1
+  fi
+done
+
+echo "Belt Theory v1.2 Authentic Archive review build succeeded."
 echo "Output: $OUTPUT"
-echo "HTML pages: $PAGE_COUNT"
-echo "SHA-256: $ACTUAL_SHA256"
+echo "Production HTML pages: $PAGE_COUNT"
+echo "Archive prototype: $OUTPUT/prototype/authentic-home.html"
+echo "Release SHA-256: $ACTUAL_SHA256"
