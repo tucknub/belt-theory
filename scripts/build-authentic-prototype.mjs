@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -7,17 +7,30 @@ const root = path.resolve(here, '..');
 const outputRoot = path.resolve(process.argv[2] || path.join(root, 'dist'));
 const prototypeOut = path.join(outputRoot, 'prototype');
 const manifest = JSON.parse(await readFile(path.join(root, 'data', 'archive-assets.json'), 'utf8'));
+const focalPoints = JSON.parse(await readFile(path.join(root, 'data', 'archive-focal-points.json'), 'utf8'));
 
 await mkdir(prototypeOut, { recursive: true });
-await copyFile(path.join(root, 'prototype', 'authentic-home.css'), path.join(prototypeOut, 'authentic-home.css'));
+const baseCss = await readFile(path.join(root, 'prototype', 'authentic-home.css'), 'utf8');
+const archiveCss = `${baseCss}
+
+/* Rights-aware responsive crop component. Generated atmosphere is kept outside
+   image boundaries; these variables only choose the crop of the authentic photo. */
+.archive-image { object-position: var(--archive-focus-desktop, 50% 50%) !important; }
+@media (max-width: 760px) {
+  .archive-image { object-position: var(--archive-focus-mobile, var(--archive-focus-desktop, 50% 50%)) !important; }
+}
+`;
+await writeFile(path.join(prototypeOut, 'authentic-home.css'), archiveCss);
 
 let html = await readFile(path.join(root, 'prototype', 'authentic-home.html'), 'utf8');
 for (const asset of manifest.assets) {
+  const focus = focalPoints[asset.id];
+  if (!focus) throw new Error(`Missing protected focal points for ${asset.id}`);
   const defaultFile = `../assets/archive/${asset.slug}-${asset.defaultWidth}.${asset.extension}`;
   const srcset = asset.widths
     .map((width) => `../assets/archive/${asset.slug}-${width}.${asset.extension} ${width}w`)
     .join(', ');
-  const replacement = `data-asset-id="${asset.id}" class="archive-image" src="${defaultFile}" srcset="${srcset}" sizes="(max-width: 760px) 100vw, 70vw" decoding="async"`;
+  const replacement = `data-asset-id="${asset.id}" class="archive-image" style="--archive-focus-desktop:${focus.desktop};--archive-focus-mobile:${focus.mobile}" src="${defaultFile}" srcset="${srcset}" sizes="(max-width: 760px) 100vw, 70vw" decoding="async"`;
   const needle = `src="${asset.remoteSrc}"`;
   if (!html.includes(needle)) throw new Error(`Prototype does not reference ${asset.id}: ${asset.remoteSrc}`);
   html = html.replaceAll(needle, replacement);
@@ -76,4 +89,4 @@ const credits = `<!doctype html>
 </body>
 </html>`;
 await writeFile(path.join(prototypeOut, 'image-credits.html'), credits);
-console.log(`Built Authentic Archive prototype with ${manifest.assets.length} self-hosted image records.`);
+console.log(`Built Authentic Archive prototype with ${manifest.assets.length} self-hosted image records and protected focal crops.`);
