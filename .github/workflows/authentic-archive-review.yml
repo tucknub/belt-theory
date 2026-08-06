@@ -50,15 +50,17 @@ jobs:
           test -f dist/scorecard-tna.html
           test -f dist/scorecard-wcw.html
           test -f dist/scorecard-ecw.html
-          test -f dist/report-did-tna-create-stars.html
+          test -f dist/report-wwe-vs-aew.html
           test -f dist/report-tna-vs-aew.html
+          test -f dist/report-wwe-wcw-ecw.html
+          test -f dist/report-did-tna-create-stars.html
           node -e "const m=require('./dist/assets/archive/manifest.json'); if(m.assets.length!==8) process.exit(1); console.log('Verified',m.assets.length,'archival assets')"
 
       - name: Summarize review output
         run: |
           echo '## Authentic Archive review build' >> "$GITHUB_STEP_SUMMARY"
           echo '- Production pages: 18' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Authentic production surfaces: homepage, all five promotion scorecards, TNA investigation, TNA vs. AEW' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authentic production surfaces: homepage, all five promotion scorecards, all three comparison reports, TNA investigation' >> "$GITHUB_STEP_SUMMARY"
           echo '- Production credits: `image-credits.html`' >> "$GITHUB_STEP_SUMMARY"
           echo '- Archival component prototype: `prototype/authentic-home.html`' >> "$GITHUB_STEP_SUMMARY"
           echo '- Rights-approved assets: 8' >> "$GITHUB_STEP_SUMMARY"
