@@ -59,7 +59,9 @@ for script in \
   scripts/retrofit-production-home.mjs \
   scripts/verify-production-home.mjs \
   scripts/retrofit-tna-scorecard.mjs \
-  scripts/verify-tna-scorecard.mjs; do
+  scripts/verify-tna-scorecard.mjs \
+  scripts/retrofit-tna-investigation.mjs \
+  scripts/verify-tna-investigation.mjs; do
   node --check "$script"
 done
 node scripts/verify-rights-ledger.mjs
@@ -67,14 +69,17 @@ node scripts/fetch-archive-assets.mjs "$OUTPUT"
 node scripts/build-authentic-prototype.mjs "$OUTPUT"
 node scripts/retrofit-production-home.mjs "$OUTPUT"
 node scripts/retrofit-tna-scorecard.mjs "$OUTPUT"
+node scripts/retrofit-tna-investigation.mjs "$OUTPUT"
 node scripts/verify-authentic-prototype.mjs "$OUTPUT"
 node scripts/verify-production-home.mjs "$OUTPUT"
 node scripts/verify-tna-scorecard.mjs "$OUTPUT"
+node scripts/verify-tna-investigation.mjs "$OUTPUT"
 
 for path in \
   index.html \
   image-credits.html \
   scorecard-tna.html \
+  report-did-tna-create-stars.html \
   prototype/authentic-home.html \
   prototype/authentic-home.css \
   prototype/image-credits.html \
@@ -98,6 +103,7 @@ echo "Output: $OUTPUT"
 echo "Production HTML pages: $FINAL_PAGE_COUNT"
 echo "Production homepage: $OUTPUT/index.html"
 echo "TNA scorecard: $OUTPUT/scorecard-tna.html"
+echo "TNA investigation: $OUTPUT/report-did-tna-create-stars.html"
 echo "Production credits: $OUTPUT/image-credits.html"
 echo "Archive prototype: $OUTPUT/prototype/authentic-home.html"
 echo "Release SHA-256: $ACTUAL_SHA256"
