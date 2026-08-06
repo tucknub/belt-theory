@@ -11,14 +11,20 @@ const creditsPath = path.join(outputRoot, 'prototype', 'image-credits.html');
 const homepage = await readFile(homepagePath, 'utf8');
 const credits = await readFile(creditsPath, 'utf8');
 const failures = [];
+const prohibitedIds = new Set(['BT-WWE-002', 'BT-WWE-003', 'BT-ECW-001', 'BT-ECW-002']);
 
 if (/src(set)?="https?:\/\//i.test(homepage)) failures.push('Homepage still contains a remote image src or srcset.');
 if (homepage.includes('Special:Redirect/file/')) failures.push('Homepage still contains Wikimedia redirect hotlinks.');
 if (homepage.includes('ECW_Championship.jpg') || homepage.includes('Paulheyman.jpg')) failures.push('Rejected WWE-era ECW imagery is present.');
+if (homepage.includes('Vince_McMahon_Sr_and_Vince_McMahon_Jr.jpg') || homepage.includes('Vince_McMahon,_1986.png')) failures.push('Jurisdiction-limited Vince magazine imagery is present.');
 if (!homepage.includes('image-credits.html')) failures.push('Homepage does not link the photography credits page.');
 if (!credits.includes('No generative material is placed over a photographed person')) failures.push('Credits page is missing the hybrid-composition disclosure.');
+if (manifest.assets.length !== 8) failures.push(`Expected 8 approved homepage photo records; found ${manifest.assets.length}.`);
 
 for (const asset of manifest.assets) {
+  if (prohibitedIds.has(asset.id)) failures.push(`Prohibited or context-restricted asset is in the build manifest: ${asset.id}.`);
+  if (/public domain in the united states/i.test(asset.license)) failures.push(`Jurisdiction-limited license entered the global build: ${asset.id}.`);
+  if (!asset.creator || !asset.license || !asset.licenseUrl || !asset.sourcePage || !asset.caption || !asset.alt) failures.push(`Incomplete rights or context record: ${asset.id}.`);
   if (!homepage.includes(`data-asset-id="${asset.id}"`)) failures.push(`Homepage is missing data-asset-id ${asset.id}.`);
   if (!credits.includes(`id="${asset.id}"`)) failures.push(`Credits page is missing ${asset.id}.`);
   if (!credits.includes(asset.sourcePage)) failures.push(`Credits page is missing the source page for ${asset.id}.`);
@@ -33,6 +39,7 @@ const imageTags = homepage.match(/<img\b[^>]*>/gi) || [];
 for (const tag of imageTags) {
   const alt = tag.match(/\balt="([^"]*)"/i)?.[1]?.trim();
   if (!alt) failures.push(`Image is missing meaningful alt text: ${tag.slice(0, 120)}`);
+  if (!/\bdata-asset-id="BT-[^"]+"/i.test(tag)) failures.push(`Historical image is missing a rights-ledger asset ID: ${tag.slice(0, 120)}`);
 }
 
 if (failures.length) {
@@ -40,4 +47,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log(`Authentic Archive verified: ${manifest.assets.length} self-hosted historical assets, no image hotlinks, no rejected ECW imagery.`);
+console.log(`Authentic Archive verified: ${manifest.assets.length} self-hosted historical assets, no image hotlinks, no jurisdiction-limited scans and no rejected ECW imagery.`);
