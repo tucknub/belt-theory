@@ -21,51 +21,25 @@ fi
 unzip -q "$ARCHIVE" -d "$OUTPUT"
 rm "$ARCHIVE"
 
-required=(
-  index.html
-  scorecards.html
-  comparisons.html
-  methodology.html
-  research.html
-  about.html
-  update-policy.html
-  assets/site.css
-  assets/site.js
-  assets/mark.svg
-  data/canonical.json
-  _headers
-  _redirects
-)
-
+required=(index.html scorecards.html comparisons.html methodology.html research.html about.html update-policy.html assets/site.css assets/site.js assets/mark.svg data/canonical.json _headers _redirects)
 for path in "${required[@]}"; do
-  if [[ ! -f "$OUTPUT/$path" ]]; then
-    echo "Missing required production file: $path" >&2
-    exit 1
-  fi
+  [[ -f "$OUTPUT/$path" ]] || { echo "Missing required production file: $path" >&2; exit 1; }
 done
 
 BASE_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')"
-if [[ "$BASE_PAGE_COUNT" != "17" ]]; then
-  echo "Expected 17 base HTML pages; found $BASE_PAGE_COUNT." >&2
-  exit 1
-fi
+[[ "$BASE_PAGE_COUNT" == "17" ]] || { echo "Expected 17 base HTML pages; found $BASE_PAGE_COUNT." >&2; exit 1; }
 
-# Authentic Archive build. Approved Commons originals are fetched during the
-# build and saved under Belt Theory's own output paths. Browser markup uses only
-# local URLs; source and license URLs remain visible in the credits pages.
-for script in \
-  scripts/*archive*.mjs \
-  scripts/verify-rights-ledger.mjs \
-  scripts/retrofit-production-home.mjs \
-  scripts/verify-production-home.mjs \
-  scripts/retrofit-tna-scorecard.mjs \
-  scripts/verify-tna-scorecard.mjs \
-  scripts/retrofit-tna-investigation.mjs \
-  scripts/verify-tna-investigation.mjs \
-  scripts/retrofit-tna-vs-aew.mjs \
-  scripts/verify-tna-vs-aew.mjs; do
-  node --check "$script"
-done
+scripts=(
+  scripts/*archive*.mjs
+  scripts/verify-rights-ledger.mjs
+  scripts/retrofit-production-home.mjs scripts/verify-production-home.mjs
+  scripts/retrofit-tna-scorecard.mjs scripts/verify-tna-scorecard.mjs
+  scripts/retrofit-tna-investigation.mjs scripts/verify-tna-investigation.mjs
+  scripts/retrofit-tna-vs-aew.mjs scripts/verify-tna-vs-aew.mjs
+  scripts/retrofit-wwe-scorecard.mjs scripts/verify-wwe-scorecard.mjs
+)
+for script in "${scripts[@]}"; do node --check "$script"; done
+
 node scripts/verify-rights-ledger.mjs
 node scripts/fetch-archive-assets.mjs "$OUTPUT"
 node scripts/build-authentic-prototype.mjs "$OUTPUT"
@@ -73,43 +47,26 @@ node scripts/retrofit-production-home.mjs "$OUTPUT"
 node scripts/retrofit-tna-scorecard.mjs "$OUTPUT"
 node scripts/retrofit-tna-investigation.mjs "$OUTPUT"
 node scripts/retrofit-tna-vs-aew.mjs "$OUTPUT"
+node scripts/retrofit-wwe-scorecard.mjs "$OUTPUT"
 node scripts/verify-authentic-prototype.mjs "$OUTPUT"
 node scripts/verify-production-home.mjs "$OUTPUT"
 node scripts/verify-tna-scorecard.mjs "$OUTPUT"
 node scripts/verify-tna-investigation.mjs "$OUTPUT"
 node scripts/verify-tna-vs-aew.mjs "$OUTPUT"
+node scripts/verify-wwe-scorecard.mjs "$OUTPUT"
 
-for path in \
-  index.html \
-  image-credits.html \
-  scorecard-tna.html \
-  report-did-tna-create-stars.html \
-  report-tna-vs-aew.html \
-  prototype/authentic-home.html \
-  prototype/authentic-home.css \
-  prototype/image-credits.html \
-  assets/archive/manifest.json; do
-  if [[ ! -f "$OUTPUT/$path" ]]; then
-    echo "Missing Authentic Archive file: $path" >&2
-    exit 1
-  fi
+archive_pages=(index.html image-credits.html scorecard-wwe.html scorecard-tna.html report-did-tna-create-stars.html report-tna-vs-aew.html prototype/authentic-home.html prototype/authentic-home.css prototype/image-credits.html assets/archive/manifest.json)
+for path in "${archive_pages[@]}"; do
+  [[ -f "$OUTPUT/$path" ]] || { echo "Missing Authentic Archive file: $path" >&2; exit 1; }
 done
 
 FINAL_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')"
-if [[ "$FINAL_PAGE_COUNT" != "18" ]]; then
-  echo "Expected 18 final production HTML pages; found $FINAL_PAGE_COUNT." >&2
-  exit 1
-fi
-
+[[ "$FINAL_PAGE_COUNT" == "18" ]] || { echo "Expected 18 final production HTML pages; found $FINAL_PAGE_COUNT." >&2; exit 1; }
 python "$OUTPUT/scripts/verify.py"
 
 echo "Belt Theory v1.2 Authentic Archive build succeeded."
 echo "Output: $OUTPUT"
 echo "Production HTML pages: $FINAL_PAGE_COUNT"
-echo "Production homepage: $OUTPUT/index.html"
-echo "TNA scorecard: $OUTPUT/scorecard-tna.html"
-echo "TNA investigation: $OUTPUT/report-did-tna-create-stars.html"
-echo "TNA vs. AEW report: $OUTPUT/report-tna-vs-aew.html"
+echo "Authentic surfaces: homepage, WWE scorecard, TNA scorecard, TNA investigation, TNA vs. AEW"
 echo "Production credits: $OUTPUT/image-credits.html"
-echo "Archive prototype: $OUTPUT/prototype/authentic-home.html"
 echo "Release SHA-256: $ACTUAL_SHA256"
