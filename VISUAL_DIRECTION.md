@@ -2,17 +2,67 @@
 
 ## Core principle
 
-Belt Theory is a documentary-style wrestling research publication. Its visual authority must come from **real wrestling history**, not synthetic wrestlers, fabricated faces, fake arenas or generic sports imagery.
+Belt Theory is a documentary-style wrestling research publication. Its visual authority must come from **real wrestling history** whenever real people, promotions, championships, venues or events are being shown.
 
-The site should feel like a premium long-form sports magazine, historical documentary and data-journalism project built from authentic source material.
+The site should feel like a premium long-form sports magazine, historical documentary and data-journalism project built from authentic source material, with selective AI-assisted design used only where it strengthens the presentation without fabricating the historical record.
 
-## Non-negotiable rule
+## Non-negotiable rule for real people
 
-**Do not use AI-generated human faces, fake wrestlers, fabricated crowds, invented championship belts or synthetic historical scenes.**
+**Do not use AI-generated or AI-recreated images of real wrestlers, managers, promoters, owners, referees, announcers, photographers, fans or other identifiable people.**
 
-AI-generated imagery may be used only for clearly abstract, nonrepresentational texture or utility graphics when no real person, event, logo, belt, venue or historical moment is implied. The default is still to avoid it.
+When a real person or real historical moment is depicted, use authentic photography, licensed editorial imagery, public-domain material, verified promotional media or another rights-cleared real source.
 
-## Primary image categories
+This also means:
+
+- Do not generate a lookalike of a real wrestler
+- Do not replace, redraw or regenerate a real person’s face or body
+- Do not place a real person into an event they did not attend
+- Do not fabricate title celebrations, matches, press conferences or ownership meetings
+- Do not use face swaps, synthetic crowd members or fake documentary photographs
+- Do not use AI to make an image appear to be an authentic lost archival photograph
+- Do not materially change a real person’s expression, physique, clothing, championship belt or physical action
+
+Normal editorial treatment remains allowed: cropping, exposure correction, color balancing, dust cleanup, sharpening, compression and clearly disclosed non-generative restoration that does not alter identity or historical meaning.
+
+## Where AI imagery is allowed
+
+AI may be used for **supporting aesthetics, abstraction and non-documentary visual design**, including:
+
+- Abstract smoke, light, sparks, grain, paper, metal and broadcast textures
+- Decorative transitions between editorial chapters
+- Nonrepresentational championship motifs
+- Generic belt silhouettes or plate-inspired ornaments that cannot be mistaken for a real championship
+- Abstract arena geometry with no identifiable real people, venue or event
+- Data-visualization backgrounds and atmospheric chart treatments
+- Stylized maps, timelines and era-transition illustrations
+- Editorial collage elements that do not depict or impersonate real people
+- Section dividers, cover treatments, social graphics and title cards
+- Conceptual illustrations for ideas such as concentration, fragmentation, governance or lineage
+- Decorative fan-energy marks, signs or crowd patterns when they are obviously graphic—not represented as a real event photograph
+- Extending empty background or texture outside a photograph only when the real subject is untouched and the generated area is clearly decorative
+
+AI-supported assets must never be presented as historical evidence. When an AI image is used, its role should be visually clear and logged as an **AI-assisted decorative asset**.
+
+## Hybrid compositions
+
+Real photography and AI-supported design may appear together when the boundary is honest and controlled.
+
+Allowed examples:
+
+- A real champion photograph framed by an abstract AI-generated metallic texture
+- A real stadium image paired with an AI-generated data atmosphere outside the photographic frame
+- A real archival portrait placed over a clearly graphic timeline illustration
+- Real belt photography combined with abstract light, paper or typographic effects
+
+Not allowed:
+
+- Generative fill crossing into a person’s face, hair, body, clothing or belt
+- AI-created arms, hands, crowd members or opponents added to a real photograph
+- A composite that makes two real people appear together when they were not
+- A generated arena presented as the site of a named historical event
+- A synthetic belt presented as an actual promotion championship
+
+## Primary authentic image categories
 
 Use real, rights-cleared imagery from the following categories:
 
@@ -36,7 +86,7 @@ Use real, rights-cleared imagery from the following categories:
 1. Original photography commissioned for Belt Theory
 2. Public-domain archives
 3. Creative Commons photography with compatible commercial reuse terms
-4. Promotion-released Creative Commons media collections
+4. Promotion-released media with explicit reuse rights
 5. Properly licensed editorial-photo services
 6. Direct permission from photographers, wrestlers, promotions or rights holders
 7. Limited fair-use excerpts only after an editorial and legal review
@@ -62,8 +112,9 @@ Use:
 - Large archival details: belts, hands, signs, turnbuckles, tickets, programs and crowd reactions
 - Before/after and then/now pairings
 - Contact-sheet grids for reigns, eras and title pathways
+- Abstract AI-supported chapter dividers when a real photograph would add no historical value
 
-Avoid generic dashboard walls, repeated card grids and decorative images that do not add evidence or historical context.
+Avoid generic dashboard walls, repeated card grids and decorative images that do not add evidence, atmosphere or historical context.
 
 ### Era treatment
 
@@ -101,19 +152,21 @@ Each promotion should be recognizable through actual historical material rather 
 - WCW: Nitro-era photography, Turner-era production, nWo-era crowd and roster images
 - ECW: intimate venues, audience proximity, Paul Heyman, core champions and physical belt photography
 
+AI-supported design may reinforce each promotion’s tone, but it must not substitute for the real people, championships and events at the center of the story.
+
 ## Logos and trademarks
 
 Logos may appear for editorial identification, chronology and comparison. They must not imply endorsement, partnership or official status.
 
 - Keep logos secondary to the editorial photography
 - Preserve historical logo versions when discussing specific eras
-- Do not redraw logos with AI
+- Do not redraw or imitate promotion logos with AI
 - Do not place promotion logos on merchandise or sell them as Belt Theory branding
 - Include a clear independent-publication disclaimer
 
-## Captions and credits
+## Captions, credits and disclosure
 
-Every published image requires:
+Every published authentic image requires:
 
 - Subject or scene
 - Event or context
@@ -121,10 +174,18 @@ Every published image requires:
 - Photographer or creator
 - Source collection
 - License or permission basis
-- Modification disclosure when cropped, toned or composited
+- Modification disclosure when cropped, toned, restored or composited
 - Permanent source URL in the image-rights ledger
 
-The visible page may use a concise credit; the full record belongs in `IMAGE_RIGHTS_LEDGER.csv`.
+Every published AI-supported image requires:
+
+- Asset purpose
+- Confirmation that no real person or event is depicted
+- Tool or generation method when materially relevant
+- Disclosure that it is decorative or conceptual
+- Permanent entry in the design-asset ledger
+
+The visible page may use a concise credit; the full record belongs in `IMAGE_RIGHTS_LEDGER.csv` or the corresponding design-asset ledger.
 
 ## People and historical accuracy
 
@@ -141,8 +202,10 @@ The visible page may use a concise credit; the full record belongs in `IMAGE_RIG
 - Archival date stamps and event-location labels
 - Photographer credit drawer or credits footer
 - Image-source badges: Public domain, CC BY, CC BY-SA, Licensed, Courtesy
+- AI-design badge in the credits for decorative generated assets
 - A visible corrections link on every long-form report
-- Photo-led section dividers instead of synthetic belt artwork
+- Photo-led section dividers for historically specific chapters
+- Abstract design-led dividers for conceptual analytical chapters
 - Real crowd and venue images to establish scale between promotions
 - Historical documents and belt close-ups for quieter analytical sections
 - Accessible alt text describing the editorial meaning, not only the objects shown
@@ -152,12 +215,13 @@ The visible page may use a concise credit; the full record belongs in `IMAGE_RIG
 
 ## What the site should feel like
 
-The visual reference is not a fantasy wrestling poster. It is a cross between:
+The visual reference is not a fake wrestling photograph or a page filled with generic dashboards. It is a cross between:
 
 - a prestige sports documentary
 - an archival magazine feature
 - a museum-quality historical exhibition
 - modern data journalism
 - an independent wrestling photo essay
+- selective high-end conceptual art direction
 
-The data remains rigorous, but the human history becomes visible.
+The data remains rigorous, the real human history remains authentic, and AI is used only to support the editorial atmosphere—not to impersonate that history.
