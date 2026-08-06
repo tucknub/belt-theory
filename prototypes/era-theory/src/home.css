@@ -1,6 +1,6 @@
 .home-page { background: radial-gradient(circle at 82% 5%, #0c3158 0, transparent 31rem), #030b16; }
 .home-page .home-hero { width: 100% !important; margin: 0 !important; }
-.home-hero { min-height: 770px; position: relative; isolation: isolate; border-bottom: 1px solid var(--line); background: linear-gradient(90deg,rgba(3,11,22,.99),rgba(3,11,22,.86) 50%,rgba(3,11,22,.43)),linear-gradient(145deg,#071829,#020914); overflow:hidden; }
+.home-hero { min-height: 900px; position: relative; isolation: isolate; border-bottom: 1px solid var(--line); background: linear-gradient(90deg,rgba(3,11,22,.99),rgba(3,11,22,.86) 50%,rgba(3,11,22,.43)),linear-gradient(145deg,#071829,#020914); overflow:hidden; }
 .home-hero::before { content:""; position:absolute; inset:0; z-index:-3; background:repeating-linear-gradient(90deg,transparent 0 88px,rgba(105,198,255,.025) 89px 90px),repeating-linear-gradient(0deg,transparent 0 88px,rgba(105,198,255,.025) 89px 90px); }
 .home-grid { position:absolute; width:65%; height:80%; right:-8%; top:8%; border:1px solid rgba(105,198,255,.14); transform:skewX(-9deg); background:linear-gradient(135deg,rgba(43,130,255,.14),transparent 55%),repeating-linear-gradient(118deg,transparent 0 34px,rgba(105,198,255,.045) 35px 36px); }
 .home-orbit { position:absolute; border:1px solid rgba(105,198,255,.2); border-radius:50%; z-index:-1; }
