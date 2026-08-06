@@ -13,10 +13,14 @@ on:
       - 'scripts/*archive*.mjs'
       - 'scripts/retrofit-production-home.mjs'
       - 'scripts/verify-production-home.mjs'
+      - 'scripts/retrofit-tna-*.mjs'
+      - 'scripts/verify-tna-*.mjs'
       - 'scripts/verify-rights-ledger.mjs'
       - 'IMAGE_RIGHTS_LEDGER.csv'
       - 'AI_DESIGN_ASSET_LEDGER.csv'
       - 'ARCHIVE_SOURCE_AUDIT.md'
+      - 'PRODUCTION_HOME_RETROFIT_AUDIT.md'
+      - 'TNA_*_RETROFIT_AUDIT.md'
       - 'DESIGN_PRESERVATION_RULE.md'
       - 'VISUAL_DIRECTION.md'
       - 'REDESIGN_ROADMAP.md'
@@ -45,18 +49,21 @@ jobs:
         run: |
           test -f dist/assets/archive/manifest.json
           test -f dist/image-credits.html
+          test -f dist/scorecard-tna.html
+          test -f dist/report-did-tna-create-stars.html
+          test -f dist/report-tna-vs-aew.html
           node -e "const m=require('./dist/assets/archive/manifest.json'); if(m.assets.length!==8) process.exit(1); console.log('Verified',m.assets.length,'archival assets')"
 
       - name: Summarize review output
         run: |
           echo '## Authentic Archive review build' >> "$GITHUB_STEP_SUMMARY"
           echo '- Production pages: 18' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Production homepage: `index.html`' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authentic production surfaces: homepage, TNA scorecard, TNA investigation, TNA vs. AEW' >> "$GITHUB_STEP_SUMMARY"
           echo '- Production credits: `image-credits.html`' >> "$GITHUB_STEP_SUMMARY"
           echo '- Archival component prototype: `prototype/authentic-home.html`' >> "$GITHUB_STEP_SUMMARY"
           echo '- Rights-approved assets: 8' >> "$GITHUB_STEP_SUMMARY"
           echo '- Browser image hotlinks: prohibited by verification scripts' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Rejected WWE-era ECW images: prohibited by verification scripts' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Jurisdiction-limited Vince scans and rejected WWE-era ECW images: prohibited by verification scripts' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload complete preview artifact
         uses: actions/upload-artifact@v4
