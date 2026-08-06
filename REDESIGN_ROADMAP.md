@@ -18,133 +18,79 @@ The binding preservation rules are defined in `DESIGN_PRESERVATION_RULE.md`.
 - [x] Source/date audit and jurisdiction review
 - [x] Responsive self-hosting pipeline and focal-point controls
 - [x] Production homepage
-- [x] WWE scorecard
-- [x] AEW scorecard
-- [x] TNA scorecard
-- [x] WCW scorecard
-- [x] Original ECW scorecard
+- [x] All five promotion scorecards
+- [x] All three matched comparison reports
 - [x] TNA star-creation report
-- [x] TNA vs. AEW comparison
-- [ ] WWE vs. AEW comparison
-- [ ] WWE vs. WCW vs. ECW comparison
-- [ ] Research, methodology, about and policy image surfaces
+- [x] Research, methodology, about and policy support surfaces
+- [x] Production image-credits page
+- [x] Structural desktop/mobile QA with dimension-matched test images
+- [ ] Connected build downloads the real approved derivatives
 - [ ] Real-derivative desktop/mobile crop review
+- [ ] Final historical-caption and visible-attribution review
 - [ ] Final accessibility, performance and canonical-number audit
+- [ ] Merge and deploy
 
-The release must preserve:
+## Implemented publication surfaces
 
-- approved page architecture
-- existing typography and visual hierarchy
-- black, charcoal, gold and promotion-accent system
-- data rails, verdict blocks and comparison modules
-- canonical findings and August 5, 2026 research snapshot
-- navigation, source transparency and responsive behavior
+### Scorecards
 
-## Phase 1 — Rights and asset foundation
+- WWE
+- AEW
+- TNA / Impact
+- WCW
+- Original ECW
 
-- Maintain `IMAGE_RIGHTS_LEDGER.csv` for every real photograph, logo, document and historical graphic
-- Maintain `AI_DESIGN_ASSET_LEDGER.csv` separately
-- Verify the exact license, creator, source page and modification requirements before downloading
-- Reject every `License review` image from production until verification is complete
-- Store original files, optimized derivatives and attribution text separately
-- Add focal-point metadata for desktop, tablet and mobile crops
-- Create reusable caption, credit, license and image-source components
-- Add a complete image-credits page
+### Comparisons
 
-## Phase 2 — Homepage imagery retrofit
+- WWE vs. AEW
+- TNA vs. AEW
+- WWE vs. WCW vs. ECW
 
-Start from the approved production homepage. Preserve its composition, typography, data hierarchy, copy, promotion modules and overall visual character. Replace only the imagery and the minimum surrounding structure required for authentic photography.
+### Investigation
 
-`prototype/authentic-home.html` remains a photo-component and crop test, not an automatic replacement homepage.
+- Did TNA Create Its Own Stars—or Borrow Them?
 
-## Phase 3 — Five scorecard image packages — implemented
+### Support pages
 
-1. TNA — implemented
-2. WWE — implemented
-3. AEW — implemented
-4. WCW — implemented
-5. Original ECW — implemented
+- Scorecard library
+- Comparison library
+- Research library
+- Methodology
+- About
+- Update policy
 
-Each scorecard preserves the approved structure, metrics, verdicts and source links while using promotion-specific photography with visible credits outside the photographed pixels.
+## Binding implementation rules
 
-## Phase 4 — Comparison report image packages
+- Preserve approved page architecture, typography and data hierarchy.
+- Preserve canonical findings and the August 5, 2026 research snapshot.
+- Use authentic photography for real people, events, crowds, venues and belts.
+- Keep captions and credits outside the photographed pixels.
+- Do not create invented face-offs or composites implying people appeared together.
+- Do not use jurisdiction-limited or context-restricted images in the global build.
+- Use code-native abstraction where historical photography adds no evidence.
+- Generated material may not cross into a real person’s face, body, clothing, hands or championship belt.
 
-### WWE vs. AEW — next
+## Review gates still open
 
-- one authentic image per promotion in the existing split treatment
-- matched image categories where rights-cleared assets exist
-- no invented face-off or composite involving people who were not together
+The branch remains draft until the connected build creates the real derivatives and passes:
 
-### TNA vs. AEW — implemented
-
-- authentic TNA and AEW records remain independent source frames
-- existing blue/gold comparison atmosphere remains outside the photographs
-
-### WWE vs. WCW vs. ECW — pending
-
-- era-correct authentic images inside the existing three-promotion structure
-- print and broadcast textures may remain as decoration
-
-## Phase 5 — TNA investigation — implemented
-
-The existing long-form report and canonical argument remain intact. Authentic TNA Impact photography occupies separate editorial frames with caption bands outside the photographed pixels.
-
-## Phase 6 — Reusable image components
-
-- authentic photo frame
-- photo hero
-- split-photo comparison
-- caption and photographer credit
-- license and source record
-- archival date and location stamp
-- responsive focal-point control
-- photo/data side rail
-- AI-assisted conceptual divider outside photo boundaries
-- corrections and source-note footer
-
-## Phase 7 — Accessibility and integrity
-
-- Every meaningful photograph receives editorial alt text
-- Decorative AI texture receives empty alt text
-- Credits remain visible without hover
-- Mobile crops are manually approved
-- Faces, belts and action focal points remain intact
-- Historical claims are not conveyed by imagery alone
-- Every image is traceable to a ledger entry
-- Generated material never crosses into a real person’s face, body, clothing, hands or championship belt
-
-## Phase 8 — Performance
-
-- Preserve archival quality while generating responsive derivatives
-- Preload only the first hero image
-- Lazy-load supporting photography
-- Set stable aspect ratios to prevent layout shift
-- Avoid third-party hotlinks in production
-
-## Phase 9 — Review gates
-
-A page cannot merge until it passes:
-
-1. Historical accuracy review
-2. License and attribution review
+1. Historical accuracy and caption review
+2. License and visible-attribution review
 3. Existing-design fidelity review
-4. Desktop visual review
-5. 390-pixel mobile crop review
-6. Accessibility review
-7. Performance review
-8. Canonical-number verification
+4. Desktop photographic crop review
+5. 390-pixel mobile photographic crop review
+6. Face, body, clothing, hand and championship-belt boundary review
+7. Accessibility review
+8. Performance review
+9. Canonical-number verification
 
-## Next implementation order
+## Next action
 
-1. WWE vs. AEW
-2. WWE vs. WCW vs. ECW
-3. Research, methodology, about and policy image surfaces
-4. Full credits-page expansion and final audit
-5. Connected build and real-photo crop review
+Run the connected GitHub or Cloudflare build for `redesign/authentic-archive-v1`, inspect the generated artifact, correct any focal points, then complete the final audit and merge decision.
 
 ## Definition of complete
 
-The retrofit is complete when the existing Belt Theory design remains recognizably intact, no real person is represented by an AI-generated likeness, every real image has a verified rights-ledger entry, all canonical data remains unchanged, and the site passes all review gates using the real generated derivatives.
+The retrofit is complete when the existing Belt Theory design remains recognizably intact, no real person is represented by an AI-generated likeness, every real image has a verified rights-ledger entry, all canonical data remains unchanged, and the real generated derivatives pass every review gate.
 
 ## Final principle
 
