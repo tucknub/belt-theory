@@ -11,8 +11,12 @@ on:
       - 'prototype/**'
       - 'data/archive-*.json'
       - 'scripts/*archive*.mjs'
+      - 'scripts/retrofit-production-home.mjs'
+      - 'scripts/verify-production-home.mjs'
+      - 'scripts/verify-rights-ledger.mjs'
       - 'IMAGE_RIGHTS_LEDGER.csv'
       - 'AI_DESIGN_ASSET_LEDGER.csv'
+      - 'ARCHIVE_SOURCE_AUDIT.md'
       - 'DESIGN_PRESERVATION_RULE.md'
       - 'VISUAL_DIRECTION.md'
       - 'REDESIGN_ROADMAP.md'
@@ -40,17 +44,19 @@ jobs:
       - name: Verify generated archive manifest
         run: |
           test -f dist/assets/archive/manifest.json
+          test -f dist/image-credits.html
           node -e "const m=require('./dist/assets/archive/manifest.json'); if(m.assets.length!==8) process.exit(1); console.log('Verified',m.assets.length,'archival assets')"
 
       - name: Summarize review output
         run: |
           echo '## Authentic Archive review build' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Production pages: 17' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Archival homepage: `prototype/authentic-home.html`' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Credits page: `prototype/image-credits.html`' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Production pages: 18' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Production homepage: `index.html`' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Production credits: `image-credits.html`' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Archival component prototype: `prototype/authentic-home.html`' >> "$GITHUB_STEP_SUMMARY"
           echo '- Rights-approved assets: 8' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Browser image hotlinks: prohibited by verification script' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Rejected WWE-era ECW images: prohibited by verification script' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Browser image hotlinks: prohibited by verification scripts' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Rejected WWE-era ECW images: prohibited by verification scripts' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload complete preview artifact
         uses: actions/upload-artifact@v4
