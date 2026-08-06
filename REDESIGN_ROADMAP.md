@@ -1,132 +1,170 @@
-# Belt Theory — Documentary Redesign Roadmap
+# Belt Theory — Authentic Imagery Retrofit Roadmap
 
 ## Objective
 
-Replace the synthetic-arena visual system with a photo-led editorial system built from authentic wrestling photography, complete rights records, visible captions and selective AI-supported decorative design.
+Replace synthetic or misleading historical imagery with authentic, rights-cleared wrestling photography **while preserving the existing Belt Theory design system**.
+
+This is an imagery, attribution and historical-integrity retrofit—not a wholesale redesign.
+
+The binding preservation rules are defined in `DESIGN_PRESERVATION_RULE.md`.
 
 ## Release target
 
 **Belt Theory v1.2 — Authentic Archive Edition**
 
-The redesign must preserve all canonical findings, links, responsive behavior, source transparency and the August 5, 2026 research snapshot.
+The release must preserve:
+
+- approved page architecture
+- existing typography and visual hierarchy
+- black, charcoal, gold and promotion-accent system
+- data rails, verdict blocks and comparison modules
+- canonical findings and August 5, 2026 research snapshot
+- navigation, source transparency and responsive behavior
 
 ## Phase 1 — Rights and asset foundation
 
 - Maintain `IMAGE_RIGHTS_LEDGER.csv` for every real photograph, logo, document and historical graphic
 - Maintain `AI_DESIGN_ASSET_LEDGER.csv` separately
 - Verify the exact license, creator, source page and modification requirements before downloading
+- Reject every `License review` image from production until verification is complete
 - Store original files, optimized derivatives and attribution text separately
 - Add focal-point metadata for desktop, tablet and mobile crops
-- Reject any photo with uncertain commercial reuse rights from the launch package
-- Create a credits component and full image-credits page
+- Create reusable caption, credit, license and image-source components
+- Add a complete image-credits page
 
-## Phase 2 — Homepage redesign
+## Phase 2 — Homepage imagery retrofit
 
-Build the homepage as a magazine cover and exhibition entrance, not a dashboard.
+Start from the approved production homepage.
 
-### Opening sequence
+Preserve its composition, typography, data hierarchy, copy, promotion modules and overall visual character. Replace only the imagery and the minimum surrounding structure required for authentic photography.
 
-- Full-bleed authentic event or arena photograph
-- Oversized Belt Theory title and concise thesis
-- Visible photograph credit
-- Five-promotion index presented as a photographic editorial rail
-- One dominant current investigation rather than equal-sized cards
+### Required changes
 
-### Supporting sections
+- Replace synthetic championship and arena imagery that could be mistaken for real history
+- Insert authentic event, arena, wrestler, owner and belt photographs into the existing page structure
+- Add visible credits and historical captions
+- Preserve negative space around faces, bodies, hands, clothing and belts
+- Self-host approved responsive derivatives
+- Retain original Belt Theory atmosphere through abstract textures and design outside the photo boundaries
 
-- Real crowd and venue photography to establish promotional scale
-- Real wrestlers and title presentations to humanize scorecards
-- Historical management and ownership photography beside governance findings
-- Photo-led comparison modules
-- Archival documents and belt details around methodology
-- AI-supported abstract transition art between historically specific chapters
+### Prototype usage
 
-## Phase 3 — Five scorecards
+`prototype/authentic-home.html` is a photo-component and crop test. It is not automatically the replacement homepage.
 
-Each scorecard receives a distinct real-photo package.
+Use it to validate:
 
-### WWE
+- photography choices
+- caption design
+- license presentation
+- focal-point behavior
+- mobile crops
+- photo/data relationships
 
-- Arena-scale opening photograph
-- Ownership and management portraits
-- Actual championship presentations
-- Generational visual timeline
-- Data rails beside authentic images
+Transfer successful components into the production homepage without unnecessarily changing the production layout.
 
-### AEW
+## Phase 3 — Five scorecard image packages
+
+Retrofit the existing scorecards in this order:
+
+1. TNA
+2. WWE
+3. AEW
+4. WCW
+5. Original ECW
+
+For each scorecard:
+
+- preserve the approved scorecard structure
+- replace the hero and historical image surfaces
+- add real promotion-specific photographs
+- add visible credits and context
+- maintain existing metrics, verdicts and data modules
+- avoid turning the page into a generic photo gallery
+
+### WWE imagery
+
+- arena scale
+- ownership and management portraits
+- actual championship presentations
+- generational historical photographs
+
+### AEW imagery
 
 - Wembley or major-event scale
-- Real faction and tag-team action
-- Crowd identity and modern production
-- Flagship-title champions and championship celebrations
+- real faction and tag-team action
+- crowd identity and modern production
+- actual champions and title celebrations
 
-### TNA
+### TNA imagery
 
-- Six-sided-ring and Impact Zone history
+- six-sided-ring and Impact Zone history
 - X-Division action
 - Knockouts and tag-team photography
-- Visual identity changes across management phases
+- visual identity changes across management phases
 
-### WCW
+### WCW imagery
 
 - Nitro-era event photography
 - Turner-era production scale
-- World champions, U.S./TV pathways and faction-era imagery
-- Management and governance portraits
+- world champions, U.S./TV pathways and faction-era imagery
+- management and governance portraits
 
-### Original ECW
+### Original ECW imagery
 
-- Intimate venue atmosphere
-- Core champions, belt and audience proximity
+- intimate venue atmosphere
+- core champions, belt and audience proximity
 - Paul Heyman and operational identity
-- Clear distinction between original ECW and later WWE ECW photographs
+- clear distinction between original ECW and later WWE ECW photographs
 
-## Phase 4 — Comparison reports
+## Phase 4 — Comparison report image packages
+
+Preserve the existing report structures and comparison scorecards.
 
 ### WWE vs. AEW
 
-- Equal-window split-screen opening using one authentic image per promotion
-- Matched photographic categories: world title, pathways, women, teams, governance
-- No invented face-off or composite involving people who were not together
+- one authentic image per promotion in the existing split treatment
+- matched image categories for world title, pathways, women, teams and governance
+- no invented face-off or composite involving people who were not together
 
 ### TNA vs. AEW
 
-- Real TNA six-sided-ring or event image against real AEW stadium/crowd image
-- Promotion-color design atmosphere may be AI-assisted outside the photo frames
+- authentic TNA event or six-sided-ring image against authentic AEW stadium or crowd imagery
+- existing blue/gold comparison atmosphere may remain outside the photographs
 
 ### WWE vs. WCW vs. ECW
 
-- Three-column historical contact sheet
-- Era-correct print and broadcast treatment
-- Real management, venue and title imagery
+- era-correct authentic images inside the existing three-promotion structure
+- print and broadcast textures may remain as decoration
 
 ## Phase 5 — TNA investigation
 
-`Did TNA Create Its Own Stars—or Borrow Them?` becomes the model long-form feature.
+Preserve the existing long-form report and canonical argument.
 
-- Open with a real TNA champion or event photograph
-- Pair imported-credibility findings with authentic wrestler imagery
-- Pair internal-development findings with X-Division, tag and Knockouts photography
-- Use ownership and management images for phase changes
-- End with a photographic pathway wall and final verdict
+Replace synthetic historical imagery with:
 
-## Phase 6 — Editorial components
+- authentic TNA champion or event photography
+- real X-Division, tag and Knockouts imagery
+- management and ownership photographs for phase transitions
+- a real photographic pathway wall where licensing permits
 
-Build reusable components for:
+Do not restructure the report unless image integrity or accessibility requires it.
 
-- Photo hero
-- Split-photo comparison
-- Contact sheet
-- Caption and photographer credit
-- License badge
-- Image-credit drawer
-- Archival date/location stamp
-- Photo/data side rail
-- Timeline with documentary images
-- Real belt detail panel
-- Historical-document viewer
-- AI-assisted conceptual divider
-- Corrections and source-note footer
+## Phase 6 — Reusable image components
+
+Build only the components needed to retrofit the current site:
+
+- authentic photo frame
+- photo hero
+- split-photo comparison
+- caption and photographer credit
+- license badge
+- image-credit drawer
+- archival date and location stamp
+- responsive focal-point control
+- photo/data side rail
+- real belt detail panel
+- AI-assisted conceptual divider outside photo boundaries
+- corrections and source-note footer
 
 ## Phase 7 — Accessibility and integrity
 
@@ -135,9 +173,9 @@ Build reusable components for:
 - Credits remain visible without hover
 - Mobile crops are manually approved
 - Faces, belts and action focal points remain intact
-- No text is baked into images unless a transcript is provided
 - Historical claims are not conveyed by imagery alone
 - Every image is traceable to a ledger entry
+- Generated material never crosses into a real person’s face, body, clothing, hands or championship belt
 
 ## Phase 8 — Performance
 
@@ -146,7 +184,6 @@ Build reusable components for:
 - Preload only the first hero image
 - Lazy-load supporting photography
 - Set dimensions and aspect ratios to prevent layout shift
-- Use CSS texture and AI-supported design sparingly
 - Avoid third-party hotlinks in production
 
 ## Phase 9 — Review gates
@@ -155,15 +192,16 @@ A page cannot merge until it passes:
 
 1. Historical accuracy review
 2. License and attribution review
-3. Desktop visual review
-4. 390-pixel mobile crop review
-5. Accessibility review
-6. Performance review
-7. Canonical-number verification
+3. Existing-design fidelity review
+4. Desktop visual review
+5. 390-pixel mobile crop review
+6. Accessibility review
+7. Performance review
+8. Canonical-number verification
 
 ## Planned implementation order
 
-1. Homepage
+1. Homepage image retrofit
 2. TNA scorecard
 3. TNA star-creation report
 4. TNA vs. AEW
@@ -173,17 +211,21 @@ A page cannot merge until it passes:
 8. ECW scorecard
 9. WWE vs. AEW
 10. WWE vs. WCW vs. ECW
-11. Research, methodology, about and policy pages
+11. Research, methodology, about and policy image surfaces
 12. Full credits page and final audit
 
 ## Definition of complete
 
-The redesign is complete when:
+The retrofit is complete when:
 
-- No real person is represented by an AI-generated likeness
-- Every real image has a rights-ledger entry
-- Every AI-assisted image is clearly decorative or conceptual
-- Every page is led by historically relevant imagery
-- All canonical data remains unchanged unless the research workbook is updated
-- The site passes all seven review gates
-- The new release is deployed only after side-by-side comparison with the approved documentary direction
+- the existing Belt Theory design remains recognizably intact
+- no real person is represented by an AI-generated likeness
+- every real image has a verified rights-ledger entry
+- every AI-assisted image is clearly decorative or conceptual
+- all canonical data remains unchanged unless the research workbook is updated
+- the site passes all eight review gates
+- the release is deployed only after side-by-side comparison with the approved production design
+
+## Final principle
+
+> Keep the Belt Theory style. Replace fake history with real history.
