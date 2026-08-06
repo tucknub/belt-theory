@@ -33,9 +33,14 @@ for (const asset of manifest.assets) {
     .map((width) => `../assets/archive/${asset.slug}-${width}.${asset.extension} ${width}w`)
     .join(', ');
   const replacement = `data-asset-id="${asset.id}" class="archive-image" style="--archive-focus-desktop:${focus.desktop};--archive-focus-mobile:${focus.mobile}" src="${defaultFile}" srcset="${srcset}" sizes="(max-width: 760px) 100vw, 70vw" decoding="async"`;
-  const needle = `src="${asset.remoteSrc}"`;
-  if (!html.includes(needle)) throw new Error(`Prototype does not reference ${asset.id}: ${asset.remoteSrc}`);
+  const sourceReference = asset.prototypeRemoteSrc || asset.remoteSrc;
+  const needle = `src="${sourceReference}"`;
+  if (!html.includes(needle)) throw new Error(`Prototype does not reference ${asset.id}: ${sourceReference}`);
   html = html.replaceAll(needle, replacement);
+  for (const [from, to] of asset.prototypeTextReplacements || []) {
+    if (!html.includes(from)) throw new Error(`Prototype replacement source is missing for ${asset.id}: ${from}`);
+    html = html.replaceAll(from, to);
+  }
 }
 
 html = html.replace(
