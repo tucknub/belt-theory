@@ -12,6 +12,7 @@ on:
       - 'release-parts/**'
       - 'release-repair/**'
       - '.github/workflows/deploy-pages.yml'
+      - '.pages-deploy-trigger'
   workflow_dispatch:
 
 permissions:
