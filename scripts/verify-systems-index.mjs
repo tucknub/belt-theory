@@ -17,6 +17,9 @@ const required = [
 for (const text of required) if (!html.includes(text)) failures.push(`systems-index.html missing required content: ${text}`);
 if ((html.match(/<h1\b/gi) || []).length !== 1) failures.push('systems-index.html must have exactly one h1.');
 if (/<img\b[^>]*\bsrc="https?:\/\//i.test(html)) failures.push('systems-index.html must not hotlink browser imagery.');
+const mobileNav = html.match(/<nav aria-label="Mobile navigation" class="mobilenav">[\s\S]*?<\/nav>/i)?.[0] || '';
+if (!mobileNav.includes('href="systems-index.html"')) failures.push('Systems Index mobile navigation is missing its Systems index link.');
+if (!/aria-current="page" class="active" href="systems-index\.html">Systems index<\/a>/.test(mobileNav)) failures.push('Systems Index mobile navigation is missing current-page semantics.');
 const home = await readFile(path.join(outputRoot, 'index.html'), 'utf8');
 if (!home.includes('href="systems-index.html">Open Systems Index</a>')) failures.push('Homepage primary CTA does not point to Systems Index.');
 const css = await readFile(path.join(outputRoot, 'assets', 'site.css'), 'utf8');
@@ -24,4 +27,4 @@ if (!css.includes('/* Championship Systems Index */')) failures.push('Systems In
 const pages = (await readdir(outputRoot)).filter((name) => name.endsWith('.html'));
 if (pages.length !== 19) failures.push(`Expected 19 production HTML pages after Systems Index; found ${pages.length}.`);
 if (failures.length) { console.error('Systems Index verification failed:'); failures.forEach((f)=>console.error(`- ${f}`)); process.exit(1); }
-console.log('Championship Systems Index verified: evidence labels preserved, no false universal ranking, 19 production pages.');
+console.log('Championship Systems Index verified: evidence labels preserved, mobile navigation complete, no false universal ranking, 19 production pages.');
