@@ -1,15 +1,17 @@
-name: Authentic Archive review
+name: Belt Theory production verification
 
 on:
   workflow_dispatch:
   push:
     branches:
+      - main
       - redesign/authentic-archive-v1
     paths:
       - 'build.sh'
       - 'package.json'
       - 'prototype/**'
       - 'data/archive-*.json'
+      - 'scripts/finalize-*.mjs'
       - 'scripts/retrofit-*.mjs'
       - 'scripts/verify-*.mjs'
       - 'IMAGE_RIGHTS_LEDGER.csv'
@@ -30,6 +32,7 @@ on:
       - 'prototype/**'
       - 'data/archive-*.json'
       - 'scripts/*archive*.mjs'
+      - 'scripts/finalize-*.mjs'
       - 'scripts/retrofit-*.mjs'
       - 'scripts/verify-*.mjs'
       - 'IMAGE_RIGHTS_LEDGER.csv'
@@ -49,21 +52,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Check out review branch
+      - name: Check out release ref
         uses: actions/checkout@v4
 
-      - name: Use Node.js 20
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
-      - name: Build production and Authentic Archive review
+      - name: Build and verify production
         run: npm run build
 
-      - name: Verify generated archive manifest
+      - name: Verify generated release
         run: |
           test -f dist/assets/archive/manifest.json
           test -f dist/image-credits.html
+          test -f dist/sitemap.xml
+          test -f dist/robots.txt
           test -f dist/scorecard-wwe.html
           test -f dist/scorecard-aew.html
           test -f dist/scorecard-tna.html
@@ -74,22 +79,22 @@ jobs:
           test -f dist/report-wwe-wcw-ecw.html
           test -f dist/report-did-tna-create-stars.html
           node -e "const m=require('./dist/assets/archive/manifest.json'); if(m.assets.length!==8) process.exit(1); console.log('Verified',m.assets.length,'archival assets')"
+          grep -q 'https://belt-theory.tucknub.workers.dev/' dist/sitemap.xml
 
-      - name: Summarize review output
+      - name: Summarize release output
         run: |
-          echo '## Authentic Archive review build' >> "$GITHUB_STEP_SUMMARY"
+          echo '## Belt Theory production verification' >> "$GITHUB_STEP_SUMMARY"
           echo '- Production pages: 18' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Authentic production surfaces: homepage, all five promotion scorecards, all three comparison reports, TNA investigation' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Production credits: `image-credits.html`' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Archival component prototype: `prototype/authentic-home.html`' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Canonical production URL: https://belt-theory.tucknub.workers.dev/' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Indexable sitemap pages: 17' >> "$GITHUB_STEP_SUMMARY"
           echo '- Rights-approved assets: 8' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Browser image hotlinks: prohibited by verification scripts' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Jurisdiction-limited Vince scans and rejected WWE-era ECW images: prohibited by verification scripts' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authentic surfaces: homepage, all five scorecards, all three comparison reports, TNA investigation' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Browser image hotlinks and prohibited historical imagery: rejected by build verification' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload complete preview artifact
         uses: actions/upload-artifact@v4
         with:
-          name: belt-theory-authentic-archive-preview
+          name: belt-theory-production-preview
           path: dist
           if-no-files-found: error
           retention-days: 14
