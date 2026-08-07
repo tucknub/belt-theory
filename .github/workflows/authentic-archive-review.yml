@@ -2,6 +2,25 @@ name: Authentic Archive review
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - redesign/authentic-archive-v1
+    paths:
+      - 'build.sh'
+      - 'package.json'
+      - 'prototype/**'
+      - 'data/archive-*.json'
+      - 'scripts/retrofit-*.mjs'
+      - 'scripts/verify-*.mjs'
+      - 'IMAGE_RIGHTS_LEDGER.csv'
+      - 'AI_DESIGN_ASSET_LEDGER.csv'
+      - 'ARCHIVE_SOURCE_AUDIT.md'
+      - '*_RETROFIT_AUDIT.md'
+      - 'DESIGN_PRESERVATION_RULE.md'
+      - 'VISUAL_DIRECTION.md'
+      - 'REDESIGN_ROADMAP.md'
+      - '.github/workflows/authentic-archive-review.yml'
+      - '.archive-review-trigger'
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened, edited, ready_for_review]
