@@ -24,6 +24,7 @@ BASE_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | t
 
 scripts=(
   scripts/*archive*.mjs scripts/verify-rights-ledger.mjs scripts/verify-release-links.mjs
+  scripts/fetch-roh-assets.mjs scripts/verify-roh-rights.mjs scripts/build-roh-publication.mjs scripts/verify-roh-publication.mjs
   scripts/apply-archive-crop-safety.mjs scripts/verify-archive-crop-safety.mjs
   scripts/finalize-release-accessibility.mjs scripts/verify-release-accessibility.mjs
   scripts/finalize-live-deployment.mjs scripts/verify-live-deployment.mjs
@@ -43,6 +44,8 @@ for script in "${scripts[@]}"; do node --check "$script"; done
 
 node scripts/verify-rights-ledger.mjs
 node scripts/fetch-archive-assets.mjs "$OUTPUT"
+node scripts/verify-roh-rights.mjs
+node scripts/fetch-roh-assets.mjs "$OUTPUT"
 node scripts/build-authentic-prototype.mjs "$OUTPUT"
 node scripts/retrofit-production-home.mjs "$OUTPUT"
 node scripts/retrofit-wwe-scorecard.mjs "$OUTPUT"
@@ -56,6 +59,7 @@ node scripts/retrofit-support-pages.mjs "$OUTPUT"
 node scripts/apply-archive-crop-safety.mjs "$OUTPUT"
 node scripts/build-systems-index.mjs "$OUTPUT"
 node scripts/finalize-systems-index-navigation.mjs "$OUTPUT"
+node scripts/build-roh-publication.mjs "$OUTPUT"
 node scripts/finalize-release-accessibility.mjs "$OUTPUT"
 node scripts/finalize-live-deployment.mjs "$OUTPUT"
 node scripts/verify-authentic-prototype.mjs "$OUTPUT"
@@ -70,18 +74,20 @@ node scripts/verify-comparison-reports.mjs "$OUTPUT"
 node scripts/verify-support-pages.mjs "$OUTPUT"
 node scripts/verify-archive-crop-safety.mjs "$OUTPUT"
 node scripts/verify-systems-index.mjs "$OUTPUT"
+node scripts/verify-roh-publication.mjs "$OUTPUT"
 node scripts/verify-release-accessibility.mjs "$OUTPUT"
 node scripts/verify-release-links.mjs "$OUTPUT"
 node scripts/verify-live-deployment.mjs "$OUTPUT"
 
-archive_pages=(index.html systems-index.html image-credits.html scorecards.html comparisons.html research.html methodology.html about.html update-policy.html scorecard-wwe.html scorecard-aew.html scorecard-tna.html scorecard-wcw.html scorecard-ecw.html report-did-tna-create-stars.html report-tna-vs-aew.html report-wwe-vs-aew.html report-wwe-wcw-ecw.html prototype/authentic-home.html prototype/authentic-home.css prototype/image-credits.html assets/archive/manifest.json sitemap.xml robots.txt DEPLOY.md)
+archive_pages=(index.html systems-index.html image-credits.html scorecards.html comparisons.html research.html methodology.html about.html update-policy.html scorecard-wwe.html scorecard-aew.html scorecard-tna.html scorecard-wcw.html scorecard-ecw.html scorecard-roh.html report-did-tna-create-stars.html report-tna-vs-aew.html report-wwe-vs-aew.html report-wwe-wcw-ecw.html prototype/authentic-home.html prototype/authentic-home.css prototype/image-credits.html assets/archive/manifest.json assets/archive/roh-manifest.json sitemap.xml robots.txt DEPLOY.md)
 for path in "${archive_pages[@]}"; do [[ -f "$OUTPUT/$path" ]] || { echo "Missing production file: $path" >&2; exit 1; }; done
 FINAL_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')"
-[[ "$FINAL_PAGE_COUNT" == "19" ]] || { echo "Expected 19 final production HTML pages; found $FINAL_PAGE_COUNT." >&2; exit 1; }
-echo "Belt Theory v1.2 Authentic Archive build succeeded."
+[[ "$FINAL_PAGE_COUNT" == "20" ]] || { echo "Expected 20 final production HTML pages; found $FINAL_PAGE_COUNT." >&2; exit 1; }
+echo "Belt Theory v1.3 ROH publication build succeeded."
 echo "Production HTML pages: $FINAL_PAGE_COUNT"
-echo "Championship Systems Index: v1.0"
+echo "Championship Systems Index: v1.0 · 6 promotion systems"
+echo "ROH internal score: 71.8 · diagnostic only, not a universal rank"
 echo "Canonical production URL: https://belt-theory.tucknub.workers.dev/"
-echo "Authentic surfaces: complete production library plus abstract-only support pages"
+echo "Authentic archival records: 8 sealed v1.2 + 2 ROH"
 echo "Production credits: $OUTPUT/image-credits.html"
 echo "Release SHA-256: $ACTUAL_SHA256"
