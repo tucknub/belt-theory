@@ -4,7 +4,16 @@ EXPECTED_SHA256="c7ead293ebe9490f949f8c78c9a1909ab631794cd36e4a9d5f6dc1f6b789f2a
 ARCHIVE=".belt-theory-site.zip"
 OUTPUT="dist"
 rm -rf "$OUTPUT" "$ARCHIVE"; mkdir -p "$OUTPUT"
-cat release-parts/site.zip.b64.part[0-9][0-9] | LC_ALL=C tr -cd 'A-Za-z0-9+/=' | base64 --decode > "$ARCHIVE"
+{
+  cat release-parts/site.zip.b64.part00
+  cat release-parts/site.zip.b64.part01
+  cat release-repair/part02-*
+  cat release-repair/part03-*
+  cat release-parts/site.zip.b64.part04
+  cat release-parts/site.zip.b64.part05
+  cat release-parts/site.zip.b64.part06
+  cat release-parts/site.zip.b64.part07
+} | LC_ALL=C tr -cd 'A-Za-z0-9+/=' | base64 --decode > "$ARCHIVE"
 ACTUAL_SHA256="$(sha256sum "$ARCHIVE" | awk '{print $1}')"
 [[ "$ACTUAL_SHA256" == "$EXPECTED_SHA256" ]] || { echo "Release checksum mismatch." >&2; echo "Expected: $EXPECTED_SHA256" >&2; echo "Actual:   $ACTUAL_SHA256" >&2; exit 1; }
 unzip -q "$ARCHIVE" -d "$OUTPUT"; rm "$ARCHIVE"
