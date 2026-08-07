@@ -23,7 +23,7 @@ BASE_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | t
 [[ "$BASE_PAGE_COUNT" == "17" ]] || { echo "Expected 17 base HTML pages; found $BASE_PAGE_COUNT." >&2; exit 1; }
 
 scripts=(
-  scripts/*archive*.mjs scripts/verify-rights-ledger.mjs
+  scripts/*archive*.mjs scripts/verify-rights-ledger.mjs scripts/verify-release-links.mjs
   scripts/retrofit-production-home.mjs scripts/verify-production-home.mjs
   scripts/retrofit-wwe-scorecard.mjs scripts/verify-wwe-scorecard.mjs
   scripts/retrofit-aew-scorecard.mjs scripts/verify-aew-scorecard.mjs
@@ -58,12 +58,12 @@ node scripts/verify-tna-investigation.mjs "$OUTPUT"
 node scripts/verify-tna-vs-aew.mjs "$OUTPUT"
 node scripts/verify-comparison-reports.mjs "$OUTPUT"
 node scripts/verify-support-pages.mjs "$OUTPUT"
+node scripts/verify-release-links.mjs "$OUTPUT"
 
 archive_pages=(index.html image-credits.html scorecards.html comparisons.html research.html methodology.html about.html update-policy.html scorecard-wwe.html scorecard-aew.html scorecard-tna.html scorecard-wcw.html scorecard-ecw.html report-did-tna-create-stars.html report-tna-vs-aew.html report-wwe-vs-aew.html report-wwe-wcw-ecw.html prototype/authentic-home.html prototype/authentic-home.css prototype/image-credits.html assets/archive/manifest.json)
 for path in "${archive_pages[@]}"; do [[ -f "$OUTPUT/$path" ]] || { echo "Missing Authentic Archive file: $path" >&2; exit 1; }; done
 FINAL_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')"
 [[ "$FINAL_PAGE_COUNT" == "18" ]] || { echo "Expected 18 final production HTML pages; found $FINAL_PAGE_COUNT." >&2; exit 1; }
-python "$OUTPUT/scripts/verify.py"
 echo "Belt Theory v1.2 Authentic Archive build succeeded."
 echo "Production HTML pages: $FINAL_PAGE_COUNT"
 echo "Authentic surfaces: complete production library plus abstract-only support pages"
