@@ -19,7 +19,8 @@ const css=await text('assets/site.css');
 for(const required of ['71.8','201','57.6%','42.4%','Strong architecture. Proven team ladder. Interrupted continuity.','BT-ROH-001','BT-ROH-002','18ZtPbJR7nWkvHXZki-wHOzfobG4K83PnxSyfA6atv5k']) if(!roh.includes(required)) failures.push(`ROH scorecard missing ${required}.`);
 if(!/not a universal cross-promotion ranking|not evidence that ROH/i.test(roh)) failures.push('ROH scorecard universal-ranking warning missing.');
 if(/src(set)?="https?:\/\//i.test(roh)) failures.push('ROH scorecard contains remote browser image src/srcset.');
-if(!css.includes('.archive-roh-contain{object-fit:contain!important')) failures.push('ROH protected contain rule missing.');
+if(!css.includes('/* ROH real-photo framing — preserve full historical subjects */')) failures.push('ROH full-subject photo-framing rules are missing.');
+if(!css.includes('.archive-roh-scorecard-photo .archive-production-image')||!css.includes('object-fit: contain !important')) failures.push('ROH Code of Honor hero is not protected from destructive cover cropping.');
 if(!roh.includes('class="archive-production-image archive-roh-contain" data-asset-id="BT-ROH-002"')) failures.push('Jay Briscoe championship portrait is not protected by contain framing.');
 
 for(const asset of assets){
@@ -45,4 +46,4 @@ if(pages.length!==20) failures.push(`Expected 20 production HTML pages after ROH
 const tags=roh.match(/<img\b[^>]*>/gi)||[];
 for(const tag of tags){ const decorative=/aria-hidden="true"/i.test(tag); const alt=tag.match(/\balt="([^"]*)"/i)?.[1]?.trim(); if(!decorative&&!alt) failures.push(`ROH image missing alt text: ${tag.slice(0,100)}`); }
 if(failures.length){ console.error('ROH publication verification failed:'); failures.forEach(f=>console.error(`- ${f}`)); process.exit(1); }
-console.log('ROH publication verified: 20 production pages, two authentic ROH photographs, protected belt framing, six-system library state, canonical workbook and no false universal ranking.');
+console.log('ROH publication verified: 20 production pages, two authentic ROH photographs, protected full-subject framing, six-system library state, canonical workbook and no false universal ranking.');
