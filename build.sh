@@ -27,6 +27,7 @@ scripts=(
   scripts/apply-archive-crop-safety.mjs scripts/verify-archive-crop-safety.mjs
   scripts/finalize-release-accessibility.mjs scripts/verify-release-accessibility.mjs
   scripts/finalize-live-deployment.mjs scripts/verify-live-deployment.mjs
+  scripts/build-systems-index.mjs scripts/verify-systems-index.mjs
   scripts/retrofit-production-home.mjs scripts/verify-production-home.mjs
   scripts/retrofit-wwe-scorecard.mjs scripts/verify-wwe-scorecard.mjs
   scripts/retrofit-aew-scorecard.mjs scripts/verify-aew-scorecard.mjs
@@ -52,6 +53,7 @@ node scripts/retrofit-tna-vs-aew.mjs "$OUTPUT"
 node scripts/retrofit-comparison-reports.mjs "$OUTPUT"
 node scripts/retrofit-support-pages.mjs "$OUTPUT"
 node scripts/apply-archive-crop-safety.mjs "$OUTPUT"
+node scripts/build-systems-index.mjs "$OUTPUT"
 node scripts/finalize-release-accessibility.mjs "$OUTPUT"
 node scripts/finalize-live-deployment.mjs "$OUTPUT"
 node scripts/verify-authentic-prototype.mjs "$OUTPUT"
@@ -65,16 +67,18 @@ node scripts/verify-tna-vs-aew.mjs "$OUTPUT"
 node scripts/verify-comparison-reports.mjs "$OUTPUT"
 node scripts/verify-support-pages.mjs "$OUTPUT"
 node scripts/verify-archive-crop-safety.mjs "$OUTPUT"
+node scripts/verify-systems-index.mjs "$OUTPUT"
 node scripts/verify-release-accessibility.mjs "$OUTPUT"
 node scripts/verify-release-links.mjs "$OUTPUT"
 node scripts/verify-live-deployment.mjs "$OUTPUT"
 
-archive_pages=(index.html image-credits.html scorecards.html comparisons.html research.html methodology.html about.html update-policy.html scorecard-wwe.html scorecard-aew.html scorecard-tna.html scorecard-wcw.html scorecard-ecw.html report-did-tna-create-stars.html report-tna-vs-aew.html report-wwe-vs-aew.html report-wwe-wcw-ecw.html prototype/authentic-home.html prototype/authentic-home.css prototype/image-credits.html assets/archive/manifest.json sitemap.xml robots.txt DEPLOY.md)
-for path in "${archive_pages[@]}"; do [[ -f "$OUTPUT/$path" ]] || { echo "Missing Authentic Archive file: $path" >&2; exit 1; }; done
+archive_pages=(index.html systems-index.html image-credits.html scorecards.html comparisons.html research.html methodology.html about.html update-policy.html scorecard-wwe.html scorecard-aew.html scorecard-tna.html scorecard-wcw.html scorecard-ecw.html report-did-tna-create-stars.html report-tna-vs-aew.html report-wwe-vs-aew.html report-wwe-wcw-ecw.html prototype/authentic-home.html prototype/authentic-home.css prototype/image-credits.html assets/archive/manifest.json sitemap.xml robots.txt DEPLOY.md)
+for path in "${archive_pages[@]}"; do [[ -f "$OUTPUT/$path" ]] || { echo "Missing production file: $path" >&2; exit 1; }; done
 FINAL_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')"
-[[ "$FINAL_PAGE_COUNT" == "18" ]] || { echo "Expected 18 final production HTML pages; found $FINAL_PAGE_COUNT." >&2; exit 1; }
+[[ "$FINAL_PAGE_COUNT" == "19" ]] || { echo "Expected 19 final production HTML pages; found $FINAL_PAGE_COUNT." >&2; exit 1; }
 echo "Belt Theory v1.2 Authentic Archive build succeeded."
 echo "Production HTML pages: $FINAL_PAGE_COUNT"
+echo "Championship Systems Index: v1.0"
 echo "Canonical production URL: https://belt-theory.tucknub.workers.dev/"
 echo "Authentic surfaces: complete production library plus abstract-only support pages"
 echo "Production credits: $OUTPUT/image-credits.html"
