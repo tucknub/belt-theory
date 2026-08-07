@@ -28,9 +28,11 @@ for (const page of pages) {
   for (const tag of html.match(/<a\b[^>]*target="_blank"[^>]*>/gi) || []) {
     if (!/\brel="[^"]*noreferrer[^"]*"/i.test(tag)) failures.push(`${page}: external new-window link is missing noreferrer.`);
   }
+  for (const tag of html.match(/<button\b[^>]*\bclass="[^"]*\bmenubutton\b[^"]*"[^>]*>/gi) || []) {
+    if (!/\btype="button"/i.test(tag)) failures.push(`${page}: menu button is missing an explicit type.`);
+  }
   if (/<[^>]+tabindex="[1-9]\d*"/i.test(html)) failures.push(`${page}: positive tabindex is prohibited.`);
   if (html.includes('class="active"') && !html.includes('aria-current="page"')) failures.push(`${page}: active navigation link is missing aria-current.`);
-  if (html.includes('class="menubutton"') && !html.includes('class="menubutton" type="button"')) failures.push(`${page}: menu button is missing an explicit type.`);
 }
 
 const css = await readFile(path.join(outputRoot, 'assets', 'site.css'), 'utf8');
