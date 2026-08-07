@@ -6,7 +6,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(process.argv[2] || path.join(here, '..', 'dist'));
 const failures = [];
 const pages = (await readdir(root)).filter((name) => name.endsWith('.html')).sort();
-const expectedPageCount = 19;
+const expectedPageCount = 20;
 
 if (pages.length !== expectedPageCount) failures.push(`Expected ${expectedPageCount} root HTML pages; found ${pages.length}.`);
 
@@ -22,14 +22,8 @@ for (const page of pages) {
     if (!value || /^(?:#|https?:|mailto:|data:|javascript:)/i.test(value)) continue;
     const clean = value.split('#')[0].split('?')[0];
     if (!clean) continue;
-    const target = clean.startsWith('/')
-      ? path.join(root, clean.slice(1))
-      : path.resolve(path.dirname(pagePath), clean);
-    try {
-      await access(target);
-    } catch {
-      failures.push(`${page}: missing local reference ${value}`);
-    }
+    const target = clean.startsWith('/') ? path.join(root, clean.slice(1)) : path.resolve(path.dirname(pagePath), clean);
+    try { await access(target); } catch { failures.push(`${page}: missing local reference ${value}`); }
   }
 }
 
@@ -38,5 +32,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-
 console.log(`Release links verified: ${pages.length} root pages, zero missing local references.`);
