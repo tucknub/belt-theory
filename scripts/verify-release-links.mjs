@@ -6,8 +6,9 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(process.argv[2] || path.join(here, '..', 'dist'));
 const failures = [];
 const pages = (await readdir(root)).filter((name) => name.endsWith('.html')).sort();
+const expectedPageCount = 19;
 
-if (pages.length !== 18) failures.push(`Expected 18 root HTML pages; found ${pages.length}.`);
+if (pages.length !== expectedPageCount) failures.push(`Expected ${expectedPageCount} root HTML pages; found ${pages.length}.`);
 
 for (const page of pages) {
   const pagePath = path.join(root, page);
