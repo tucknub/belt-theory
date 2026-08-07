@@ -27,6 +27,7 @@ scripts=(
   scripts/apply-archive-crop-safety.mjs scripts/verify-archive-crop-safety.mjs
   scripts/finalize-release-accessibility.mjs scripts/verify-release-accessibility.mjs
   scripts/finalize-live-deployment.mjs scripts/verify-live-deployment.mjs
+  scripts/finalize-systems-index-navigation.mjs
   scripts/build-systems-index.mjs scripts/verify-systems-index.mjs
   scripts/retrofit-production-home.mjs scripts/verify-production-home.mjs
   scripts/retrofit-wwe-scorecard.mjs scripts/verify-wwe-scorecard.mjs
@@ -54,6 +55,7 @@ node scripts/retrofit-comparison-reports.mjs "$OUTPUT"
 node scripts/retrofit-support-pages.mjs "$OUTPUT"
 node scripts/apply-archive-crop-safety.mjs "$OUTPUT"
 node scripts/build-systems-index.mjs "$OUTPUT"
+node scripts/finalize-systems-index-navigation.mjs "$OUTPUT"
 node scripts/finalize-release-accessibility.mjs "$OUTPUT"
 node scripts/finalize-live-deployment.mjs "$OUTPUT"
 node scripts/verify-authentic-prototype.mjs "$OUTPUT"
