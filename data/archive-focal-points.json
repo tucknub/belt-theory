@@ -1,0 +1,10 @@
+{
+  "BT-AEW-001": { "desktop": "52% 50%", "mobile": "56% 45%" },
+  "BT-WWE-001": { "desktop": "50% 45%", "mobile": "53% 42%" },
+  "BT-GENERAL-001": { "desktop": "50% 48%", "mobile": "50% 42%" },
+  "BT-AEW-003": { "desktop": "45% 45%", "mobile": "45% 38%" },
+  "BT-TNA-001": { "desktop": "50% 42%", "mobile": "52% 35%" },
+  "BT-WCW-003": { "desktop": "50% 28%", "mobile": "50% 22%" },
+  "BT-ECW-003": { "desktop": "50% 42%", "mobile": "48% 36%" },
+  "BT-TNA-003": { "desktop": "50% 45%", "mobile": "50% 38%" }
+}
