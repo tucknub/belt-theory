@@ -8,12 +8,15 @@ Production: https://belt-theory.tucknub.workers.dev/
 
 ## Launch library
 
+- Championship Systems Index v1.0
 - Five promotion scorecards: WWE, AEW, TNA, WCW and original ECW
 - Three matched comparisons
 - One focused TNA star-creation investigation
 - Methodology, research-source, about, image-credit and update-policy pages
 - Shared canonical research data
-- Eighteen production HTML pages including the custom 404 page
+- Nineteen production HTML pages including the custom 404 page
+
+The Systems Index is intentionally an evidence map rather than a universal five-promotion ranking. Internal system scores, matched-window shares and pathway rates are labeled separately until every promotion is re-scored through one common model.
 
 ## Build
 
@@ -31,9 +34,10 @@ The v1.2 build:
 4. Verifies the image-rights ledger.
 5. Downloads and validates eight approved historical photo records and responsive derivatives.
 6. Applies the Authentic Archive production retrofits.
-7. Verifies crop safety, accessibility, links and canonical research values.
-8. Adds the production hostname, canonical URLs, Open Graph/Twitter metadata, sitemap, robots file and deployment metadata.
-9. Confirms exactly 18 production HTML pages exist.
+7. Builds Championship Systems Index v1.0 without conflating unlike metrics.
+8. Verifies crop safety, accessibility, links and canonical research values.
+9. Adds the production hostname, canonical URLs, Open Graph/Twitter metadata, sitemap, robots file and deployment metadata.
+10. Confirms exactly 19 production HTML pages exist.
 
 ## Cloudflare Workers Static Assets
 
