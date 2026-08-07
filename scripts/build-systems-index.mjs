@@ -12,8 +12,11 @@ const footerMatch = shellHtml.match(/<footer class="footer">[\s\S]*?<\/footer>/i
 if (!headerMatch || !footerMatch) throw new Error('Could not extract Belt Theory shell from scorecards.html');
 
 let header = headerMatch[0]
-  .replace(/<a aria-current="page" class="active" href="scorecards\.html">Scorecards<\/a>/, '<a class="" href="scorecards.html">Scorecards</a>');
+  .replace(/<a(?: aria-current="page")? class="active" href="scorecards\.html">Scorecards<\/a>/, '<a class="" href="scorecards.html">Scorecards</a>');
 let footer = footerMatch[0];
+if (!footer.includes('href="systems-index.html">Systems index</a>')) {
+  footer = footer.replace('<a href="methodology.html">Methodology</a>', '<a href="methodology.html">Methodology</a><a href="systems-index.html">Systems index</a>');
+}
 
 const systems = [
   {
@@ -71,7 +74,7 @@ for (const page of ['index.html', 'scorecards.html', 'comparisons.html', 'resear
     content = content.replace('<a class="button gold" href="scorecards.html">Explore scorecards</a>', '<a class="button gold" href="systems-index.html">Open Systems Index</a>');
   }
   if (!content.includes('href="systems-index.html">Systems index</a>')) {
-    content = content.replace('<nav aria-label="Footer navigation"><a href="methodology.html">', '<nav aria-label="Footer navigation"><a href="systems-index.html">Systems index</a><a href="methodology.html">');
+    content = content.replace('<a href="methodology.html">Methodology</a>', '<a href="methodology.html">Methodology</a><a href="systems-index.html">Systems index</a>');
   }
   await writeFile(file, content);
 }
