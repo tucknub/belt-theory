@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "assets": [
+    {
+      "id": "BT-ROH-001",
+      "slug": "roh-code-of-honor-2011",
+      "remoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/ROH%20Code%20of%20Honor.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b3/ROH_Code_of_Honor.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:ROH_Code_of_Honor.jpg",
+      "creator": "Steve Wright Jr.",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "caption": "Eddie Edwards offers his hand to Michael Elgin during Ring of Honor TV — August 13, 2011.",
+      "shortCredit": "Ring of Honor TV · Aug. 13, 2011 · Steve Wright Jr. · CC BY 2.0",
+      "alt": "Eddie Edwards offers to shake Michael Elgin's hand during Ring of Honor television in August 2011.",
+      "extension": "jpg",
+      "originalWidth": 4928,
+      "widths": [640, 1280, 1920],
+      "defaultWidth": 1280,
+      "changes": "Wikimedia-generated responsive resize and CSS object-position crop only; no pixel retouching or generative alteration over the photographed wrestlers.",
+      "prototypeUse": false,
+      "homepage": true
+    },
+    {
+      "id": "BT-ROH-002",
+      "slug": "jay-briscoe-roh-world-champion-2013",
+      "remoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/ROH%20World%20Champion%20Jay%20Brisco.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/ROH_World_Champion_Jay_Brisco.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:ROH_World_Champion_Jay_Brisco.jpg",
+      "creator": "Anton Jackson",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "caption": "Jay Briscoe as ROH World Champion at Supercard of Honor VII — April 5, 2013.",
+      "shortCredit": "Jay Briscoe · Supercard of Honor VII · Anton Jackson · CC BY-SA 2.0",
+      "alt": "Jay Briscoe photographed as ROH World Champion at Supercard of Honor VII in April 2013.",
+      "extension": "jpg",
+      "originalWidth": 672,
+      "widths": [500, 672],
+      "defaultWidth": 672,
+      "changes": "Wikimedia-generated responsive resize only; the full photographed wrestler and ROH World Championship are protected with contain framing; derivatives remain CC BY-SA 2.0.",
+      "prototypeUse": false,
+      "homepage": false
+    }
+  ]
+}
