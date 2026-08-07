@@ -20,6 +20,12 @@ function thumbnailUrl(originalUrl, width) {
   return `${originalUrl.replace('/wikipedia/commons/', '/wikipedia/commons/thumb/')}/${width}px-${filename}`;
 }
 
+function thumbPhpUrl(originalUrl, width) {
+  if (!originalUrl) return null;
+  const filename = decodeURIComponent(originalUrl.split('/').at(-1));
+  return `https://commons.wikimedia.org/w/thumb.php?f=${encodeURIComponent(filename)}&w=${width}`;
+}
+
 function redirectUrl(asset, width) {
   const separator = asset.remoteSrc.includes('?') ? '&' : '?';
   return `${asset.remoteSrc}${separator}width=${width}`;
@@ -90,7 +96,7 @@ async function downloadVariant(asset, width, target) {
   const useOriginal = width >= asset.originalWidth;
   const candidates = useOriginal
     ? [asset.originalUrl, redirectUrl(asset, asset.originalWidth)]
-    : [thumbnailUrl(asset.originalUrl, width), redirectUrl(asset, width)];
+    : [thumbPhpUrl(asset.originalUrl, width), thumbnailUrl(asset.originalUrl, width), redirectUrl(asset, width)];
   const uniqueCandidates = [...new Set(candidates.filter(Boolean))];
   if (!uniqueCandidates.length) throw new Error(`No download URL is available for ${asset.id} ${width}px`);
   const failures = [];
@@ -101,8 +107,8 @@ async function downloadVariant(asset, width, target) {
         const { bytes, contentType, effectiveUrl } = await fetchBytes(url);
         const dimensions = imageDimensions(bytes, contentType);
         const expectedWidth = Math.min(width, asset.originalWidth);
-        if (dimensions.width !== expectedWidth) {
-          throw new Error(`Expected ${expectedWidth}px wide, received ${dimensions.width}px`);
+        if (dimensions.width < expectedWidth || dimensions.width > asset.originalWidth) {
+          throw new Error(`Expected at least ${expectedWidth}px and no more than ${asset.originalWidth}px wide, received ${dimensions.width}px`);
         }
         await writeFile(target, bytes);
         return {
@@ -112,6 +118,8 @@ async function downloadVariant(asset, width, target) {
           effectiveUrl,
           width: dimensions.width,
           height: dimensions.height,
+          requestedWidth: width,
+          exactWidth: dimensions.width === expectedWidth,
           attempts: attempt
         };
       } catch (error) {
@@ -132,8 +140,9 @@ for (const asset of manifest.assets) {
     const filename = `${asset.slug}-${width}.${asset.extension}`;
     const target = path.join(outputDir, filename);
     const metadata = await downloadVariant(asset, width, target);
-    variants.push({ requestedWidth: width, filename, ...metadata });
-    console.log(`Archived ${asset.id} ${metadata.width}×${metadata.height} -> assets/archive/${filename}`);
+    variants.push({ filename, ...metadata });
+    const qualifier = metadata.exactWidth ? '' : ` (requested ${width}px)`;
+    console.log(`Archived ${asset.id} ${metadata.width}×${metadata.height}${qualifier} -> assets/archive/${filename}`);
   }
   built.push({ ...asset, variants });
 }
