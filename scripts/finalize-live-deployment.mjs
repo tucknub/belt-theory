@@ -65,16 +65,13 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://w
 await writeFile(path.join(outputRoot, 'sitemap.xml'), sitemap);
 await writeFile(path.join(outputRoot, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteOrigin}/sitemap.xml\n`);
 
-const deployDoc = `# Belt Theory deployment\n\nProduction URL: ${siteOrigin}/\n\n## Cloudflare Workers Static Assets\n\nRepository: tucknub/belt-theory\nProduction branch: main\nBuild command: npm run build\nDeploy command: npx wrangler deploy\nRoot directory: /\nBuild variables: none\n\nThe Worker is configured by \`wrangler.toml\` to publish \`./dist\` as static assets. The build itself verifies the release archive, rights ledger, archival photography, accessibility, links and production metadata before deployment.\n`;
+const deployDoc = `# Belt Theory deployment\n\nProduction URL: ${siteOrigin}/\n\n## Cloudflare Workers Static Assets\n\nRepository: tucknub/belt-theory\nProduction branch: main\nBuild command: npm run build\nDeploy command: npx wrangler deploy\nRoot directory: /\nBuild variables: none\n\nThe Worker is configured by \`wrangler.toml\` to publish \`./dist\` as static assets. The build itself verifies the release archive, rights ledger, archival photography, Systems Index, accessibility, links and production metadata before deployment.\n`;
 await writeFile(path.join(outputRoot, 'DEPLOY.md'), deployDoc);
 
-for (const doc of ['README.md', 'AUDIT.md']) {
-  const docPath = path.join(outputRoot, doc);
-  try {
-    let text = await readFile(docPath, 'utf8');
-    text = text.replaceAll('Cloudflare Pages', 'Cloudflare Workers Static Assets');
-    await writeFile(docPath, text);
-  } catch {}
-}
+const readmeDoc = `# Belt Theory\n\n**Championship history, measured.**\n\nProduction: ${siteOrigin}/\n\nThis generated release contains Championship Systems Index v1.0, five promotion scorecards, three matched comparison reports, the TNA star-creation investigation, methodology and research documentation, and the complete authentic-image credit ledger.\n\n- Production HTML pages: ${pages.length}\n- Indexable pages: ${indexablePages.length}\n- Deployment: Cloudflare Workers Static Assets\n- Research cutoff: August 5, 2026\n\nThe Systems Index is an evidence map, not a universal five-promotion ranking. Internal scores, matched-window shares and pathway rates remain explicitly separated until a shared scoring model is applied to every promotion.\n`;
+await writeFile(path.join(outputRoot, 'README.md'), readmeDoc);
+
+const auditDoc = `# Belt Theory production audit\n\nGenerated for the live Cloudflare Workers Static Assets release on ${today}.\n\n- Production URL: ${siteOrigin}/\n- Production HTML pages: ${pages.length}\n- Indexable sitemap pages: ${indexablePages.length}\n- Championship Systems Index: v1.0\n- Rights-approved archival records: 8\n- Canonical URLs: required on every indexable page\n- Social metadata: absolute Open Graph and Twitter image metadata\n- 404 page: noindex\n- Browser-facing historical image hotlinks: prohibited by build verification\n- Jurisdiction-limited Vince scans: prohibited\n- WWE-era ECW imagery presented as original ECW: prohibited\n- Release archive SHA-256: c7ead293ebe9490f949f8c78c9a1909ab631794cd36e4a9d5f6dc1f6b789f2a3\n\nThe build also executes page-specific canonical-number checks, rights verification, crop-safety rules, accessibility verification and internal-link verification before deployment.\n`;
+await writeFile(path.join(outputRoot, 'AUDIT.md'), auditDoc);
 
 console.log(`Finalized live deployment metadata for ${indexablePages.length} indexable pages at ${siteOrigin}.`);
