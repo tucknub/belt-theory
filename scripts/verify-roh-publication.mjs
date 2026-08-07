@@ -33,7 +33,10 @@ for(const asset of assets){
 }
 if(!home.includes('href="scorecard-roh.html"')||!home.includes('data-asset-id="BT-ROH-001"')) failures.push('Homepage ROH publication card missing.');
 if(!home.includes('Six promotions. One repeatable model.')||!home.includes('<strong>6</strong><span>promotion systems</span>')) failures.push('Homepage six-promotion state missing.');
-if(!scorecards.includes('Six systems. Measured on their own terms.')||!scorecards.includes('href="scorecard-roh.html"')) failures.push('Scorecard library ROH/six-system state missing.');
+const sixSystemHeading=/Six systems\.\s*(?:<span>)?Measured on their own terms\.(?:<\/span>)?/i.test(scorecards);
+const sixSystemRoster=scorecards.includes('WWE · AEW · TNA · WCW · ECW · ROH');
+const rohLibraryCard=scorecards.includes('href="scorecard-roh.html"')&&scorecards.includes('<strong>71.8</strong>');
+if(!sixSystemHeading||!sixSystemRoster||!rohLibraryCard) failures.push('Scorecard library ROH/six-system state missing.');
 if(!systems.includes('Six promotion systems.')||!systems.includes('Open ROH scorecard')||!systems.includes('71.8')) failures.push('Systems Index ROH/six-system state missing.');
 if(!systems.includes('no fake master ranking')&&!systems.includes('No fake master ranking')) failures.push('Systems Index anti-false-ranking rule missing.');
 if(!research.includes('18ZtPbJR7nWkvHXZki-wHOzfobG4K83PnxSyfA6atv5k')||!research.includes('ROH Final')) failures.push('Research library missing canonical ROH workbook.');
@@ -42,4 +45,4 @@ if(pages.length!==20) failures.push(`Expected 20 production HTML pages after ROH
 const tags=roh.match(/<img\b[^>]*>/gi)||[];
 for(const tag of tags){ const decorative=/aria-hidden="true"/i.test(tag); const alt=tag.match(/\balt="([^"]*)"/i)?.[1]?.trim(); if(!decorative&&!alt) failures.push(`ROH image missing alt text: ${tag.slice(0,100)}`); }
 if(failures.length){ console.error('ROH publication verification failed:'); failures.forEach(f=>console.error(`- ${f}`)); process.exit(1); }
-console.log('ROH publication verified: 20 production pages, two authentic ROH photographs, protected belt framing, canonical workbook and no false universal ranking.');
+console.log('ROH publication verified: 20 production pages, two authentic ROH photographs, protected belt framing, six-system library state, canonical workbook and no false universal ranking.');
