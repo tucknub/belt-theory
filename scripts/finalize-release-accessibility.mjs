@@ -25,9 +25,17 @@ for (const relative of [...rootPages, ...additionalPages]) {
     .replaceAll('<nav class="mobilenav">', '<nav aria-label="Mobile navigation" class="mobilenav">')
     .replaceAll('<nav><a href="methodology.html">', '<nav aria-label="Footer navigation"><a href="methodology.html">')
     .replaceAll('<a class="active"', '<a aria-current="page" class="active"')
-    .replaceAll('<button class="menubutton"', '<button class="menubutton" type="button"')
     .replaceAll('Sting and Darby Allin appearing together at AEW All In 2023 inside Wembley Stadium.', 'Sting stands in the ring while Darby Allin lies on a coffin during AEW All In 2023 at Wembley Stadium.')
     .replaceAll('Sting and Darby Allin at AEW All In — August 27, 2023.', 'Sting stands nearby as Darby Allin lies on a coffin at AEW All In — August 27, 2023.');
+
+  html = html.replace(/<button\b[^>]*\bclass="[^"]*\bmenubutton\b[^"]*"[^>]*>/gi, (tag) => {
+    if (/\btype="button"/i.test(tag)) return tag;
+    return tag.replace(/^<button\b/i, '<button type="button"');
+  });
+
+  if (relative === '404.html' && !/<meta\b[^>]*name="description"/i.test(html)) {
+    html = html.replace('</title>', '</title><meta name="description" content="Belt Theory page not found.">');
+  }
 
   html = html.replace(/<img\b[^>]*data-asset-id="([^"]+)"[^>]*>/gi, (tag, id) => {
     const size = dimensions.get(id);
