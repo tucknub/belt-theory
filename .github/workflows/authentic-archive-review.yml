@@ -11,6 +11,7 @@ on:
       - 'package.json'
       - 'prototype/**'
       - 'data/archive-*.json'
+      - 'scripts/build-*.mjs'
       - 'scripts/finalize-*.mjs'
       - 'scripts/retrofit-*.mjs'
       - 'scripts/verify-*.mjs'
@@ -32,6 +33,7 @@ on:
       - 'prototype/**'
       - 'data/archive-*.json'
       - 'scripts/*archive*.mjs'
+      - 'scripts/build-*.mjs'
       - 'scripts/finalize-*.mjs'
       - 'scripts/retrofit-*.mjs'
       - 'scripts/verify-*.mjs'
@@ -67,6 +69,7 @@ jobs:
         run: |
           test -f dist/assets/archive/manifest.json
           test -f dist/image-credits.html
+          test -f dist/systems-index.html
           test -f dist/sitemap.xml
           test -f dist/robots.txt
           test -f dist/scorecard-wwe.html
@@ -79,14 +82,18 @@ jobs:
           test -f dist/report-wwe-wcw-ecw.html
           test -f dist/report-did-tna-create-stars.html
           node -e "const m=require('./dist/assets/archive/manifest.json'); if(m.assets.length!==8) process.exit(1); console.log('Verified',m.assets.length,'archival assets')"
+          test "$(find dist -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')" = "19"
+          test "$(grep -c '<url>' dist/sitemap.xml)" = "18"
           grep -q 'https://belt-theory.tucknub.workers.dev/' dist/sitemap.xml
+          grep -q 'No fake master ranking.' dist/systems-index.html
 
       - name: Summarize release output
         run: |
           echo '## Belt Theory production verification' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Production pages: 18' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Production pages: 19' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Championship Systems Index: v1.0' >> "$GITHUB_STEP_SUMMARY"
           echo '- Canonical production URL: https://belt-theory.tucknub.workers.dev/' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Indexable sitemap pages: 17' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Indexable sitemap pages: 18' >> "$GITHUB_STEP_SUMMARY"
           echo '- Rights-approved assets: 8' >> "$GITHUB_STEP_SUMMARY"
           echo '- Authentic surfaces: homepage, all five scorecards, all three comparison reports, TNA investigation' >> "$GITHUB_STEP_SUMMARY"
           echo '- Browser image hotlinks and prohibited historical imagery: rejected by build verification' >> "$GITHUB_STEP_SUMMARY"
