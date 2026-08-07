@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - redesign/authentic-archive-v1
+      - verify/systems-index-v1
     paths:
       - 'build.sh'
       - 'package.json'
