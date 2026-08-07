@@ -24,7 +24,7 @@ BASE_PAGE_COUNT="$(find "$OUTPUT" -maxdepth 1 -type f -name '*.html' | wc -l | t
 
 scripts=(
   scripts/*archive*.mjs scripts/verify-rights-ledger.mjs scripts/verify-release-links.mjs
-  scripts/fetch-roh-assets.mjs scripts/verify-roh-rights.mjs scripts/build-roh-publication.mjs scripts/finalize-roh-scorecards-library.mjs scripts/verify-roh-publication.mjs
+  scripts/fetch-roh-assets.mjs scripts/verify-roh-rights.mjs scripts/build-roh-publication.mjs scripts/finalize-roh-scorecards-library.mjs scripts/finalize-roh-photo-framing.mjs scripts/verify-roh-publication.mjs
   scripts/apply-archive-crop-safety.mjs scripts/verify-archive-crop-safety.mjs
   scripts/finalize-release-accessibility.mjs scripts/verify-release-accessibility.mjs
   scripts/finalize-live-deployment.mjs scripts/verify-live-deployment.mjs
@@ -61,6 +61,7 @@ node scripts/build-systems-index.mjs "$OUTPUT"
 node scripts/finalize-systems-index-navigation.mjs "$OUTPUT"
 node scripts/build-roh-publication.mjs "$OUTPUT"
 node scripts/finalize-roh-scorecards-library.mjs "$OUTPUT"
+node scripts/finalize-roh-photo-framing.mjs "$OUTPUT"
 node scripts/finalize-release-accessibility.mjs "$OUTPUT"
 node scripts/finalize-live-deployment.mjs "$OUTPUT"
 node scripts/verify-authentic-prototype.mjs "$OUTPUT"
