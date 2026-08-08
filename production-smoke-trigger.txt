@@ -1,2 +1,3 @@
 Trigger production smoke test for Cloudflare Workers deployment.
 Strict visual-release audit: verify post-TNA/WWE/AEW/ROH production from main 99a903b.
+Retry after GitHub-to-Cloudflare deploy workflow setup.
