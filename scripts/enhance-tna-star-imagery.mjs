@@ -59,7 +59,7 @@ directory = setOnce(directory, /(<a class="ff-directory-row" href="scorecard-tna
 await writeFile(path.join(out, 'scorecards.html'), directory);
 
 let compare = await readFile(path.join(out, 'report-tna-vs-aew.html'), 'utf8');
-compare = setOnce(compare, /(<div class="ff-versus-media ff-versus-left">\s*<img src=")[^"]+(" alt=")[^"]*(")/, `$1${joe.src}$2${esc(joe.alt)}$3`, 'TNA vs AEW hero TNA image');
+compare = setOnce(compare, /(<div class="ff-matchup-media ff-matchup-media-2"><figure><img src=")[^"]+(" alt=")[^"]*(" fetchpriority="high" decoding="async">)/, `$1${joe.src}$2${esc(joe.alt)}$3`, 'TNA vs AEW hero TNA image');
 await writeFile(path.join(out, 'report-tna-vs-aew.html'), compare);
 
 console.log('Enhanced fan-first TNA surfaces with four self-hosted, rights-approved wrestler photographs.');
