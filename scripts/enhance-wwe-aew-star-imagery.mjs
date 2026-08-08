@@ -24,6 +24,7 @@ function setOnce(html, pattern, replacement, label) {
 const cody = asset('BT-WWE-STAR-001');
 const roman = asset('BT-WWE-STAR-002');
 const priest = asset('BT-WWE-STAR-003');
+const codyPortrait = asset('BT-WWE-STAR-004');
 const hangman = asset('BT-AEW-STAR-001');
 const punkMox = asset('BT-AEW-STAR-003');
 const aewContext = 'assets/archive/aew-all-in-2023-1280.jpg';
@@ -55,7 +56,7 @@ directory = setOnce(directory, /(<a class="ff-directory-row" href="scorecard-aew
 await writeFile(path.join(out, 'scorecards.html'), directory);
 
 let comparison = await readFile(path.join(out, 'report-wwe-vs-aew.html'), 'utf8');
-const matchupMedia = `<div class="ff-matchup-media ff-matchup-media-2 ff-matchup-star-pair"><figure class="ff-matchup-cody"><img src="${cody.src}" alt="${esc(cody.alt)}" fetchpriority="high" decoding="async"><span>WWE</span>${credit(cody)}</figure><figure class="ff-matchup-hangman"><img src="${hangman.src}" alt="${esc(hangman.alt)}" fetchpriority="high" decoding="async"><span>AEW</span>${credit(hangman)}</figure></div><div class="ff-matchup-fade">`;
+const matchupMedia = `<div class="ff-matchup-media ff-matchup-media-2 ff-matchup-star-pair"><figure class="ff-matchup-cody"><img src="${codyPortrait.src}" alt="${esc(codyPortrait.alt)}" fetchpriority="high" decoding="async"><span>WWE</span>${credit(codyPortrait)}</figure><figure class="ff-matchup-hangman"><img src="${hangman.src}" alt="${esc(hangman.alt)}" fetchpriority="high" decoding="async"><span>AEW</span>${credit(hangman)}</figure></div><div class="ff-matchup-fade">`;
 comparison = setOnce(comparison, /<div class="ff-matchup-media ff-matchup-media-2">[\s\S]*?<\/div><div class="ff-matchup-fade">/, matchupMedia, 'WWE vs AEW champion comparison imagery');
 await writeFile(path.join(out, 'report-wwe-vs-aew.html'), comparison);
 
