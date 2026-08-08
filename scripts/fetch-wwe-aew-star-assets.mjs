@@ -7,7 +7,9 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
 const outputRoot = path.resolve(process.argv[2] || path.join(root, 'dist'));
 const outputDir = path.join(outputRoot, 'assets', 'archive');
-const manifest = JSON.parse(await readFile(path.join(root, 'data', 'wwe-aew-star-assets.json'), 'utf8'));
+const primary = JSON.parse(await readFile(path.join(root, 'data', 'wwe-aew-star-assets.json'), 'utf8'));
+const additions = JSON.parse(await readFile(path.join(root, 'data', 'wwe-aew-star-additions.json'), 'utf8'));
+const manifest = { version: `${primary.version}+${additions.version}`, assets: [...primary.assets, ...additions.assets] };
 const userAgent = 'BeltTheory/1.4 (+https://github.com/tucknub/belt-theory; WWE-AEW champion archive build)';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 await mkdir(outputDir, { recursive: true });
@@ -30,20 +32,11 @@ function dimensions(bytes, type) {
   }
   throw new Error(`Could not read image dimensions for ${type}`);
 }
-
 async function fetchOnce(url) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 30000);
+  const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 30000);
   try {
-    const res = await fetch(url, {
-      redirect: 'follow', cache: 'no-store', signal: controller.signal,
-      headers: { 'user-agent': userAgent, accept: 'image/jpeg,image/png,image/*;q=.8' }
-    });
-    if (!res.ok) {
-      const error = new Error(`HTTP ${res.status}`);
-      error.status = res.status;
-      throw error;
-    }
+    const res = await fetch(url, { redirect:'follow', cache:'no-store', signal:controller.signal, headers:{'user-agent':userAgent, accept:'image/jpeg,image/png,image/*;q=.8'} });
+    if (!res.ok) { const error = new Error(`HTTP ${res.status}`); error.status = res.status; throw error; }
     const type = (res.headers.get('content-type') || '').split(';')[0].toLowerCase();
     if (!type.startsWith('image/')) throw new Error(`Unexpected content type ${type}`);
     const bytes = Buffer.from(await res.arrayBuffer());
@@ -51,17 +44,14 @@ async function fetchOnce(url) {
     return { bytes, type, url: res.url };
   } finally { clearTimeout(timer); }
 }
-
 async function fetchWithRetry(url, label) {
   const errors = [];
-  for (let attempt = 1; attempt <= 5; attempt += 1) {
+  for (let attempt=1; attempt<=5; attempt+=1) {
     try { return await fetchOnce(url); }
     catch (error) {
       errors.push(`attempt ${attempt}: ${error.message}`);
-      if (![429, 500, 502, 503, 504].includes(error.status) && error.name !== 'AbortError') break;
-      const wait = 1500 * attempt;
-      console.log(`${label}: ${error.message}; retrying in ${wait}ms`);
-      await sleep(wait);
+      if (![429,500,502,503,504].includes(error.status) && error.name !== 'AbortError') break;
+      const wait = 1500 * attempt; console.log(`${label}: ${error.message}; retrying in ${wait}ms`); await sleep(wait);
     }
   }
   throw new Error(`${label}: ${errors.join('; ')}`);
@@ -76,13 +66,10 @@ for (const asset of manifest.assets) {
   const requestedWidth = asset.originalWidth;
   const filename = `${asset.slug}-${requestedWidth}.${asset.extension}`;
   await writeFile(path.join(outputDir, filename), fetched.bytes);
-  const variants = [{
-    requestedWidth, filename, width: size.width, height: size.height, bytes: fetched.bytes.length,
-    sha256: createHash('sha256').update(fetched.bytes).digest('hex'), contentType: fetched.type, effectiveUrl: fetched.url
-  }];
+  const variants = [{ requestedWidth, filename, width:size.width, height:size.height, bytes:fetched.bytes.length, sha256:createHash('sha256').update(fetched.bytes).digest('hex'), contentType:fetched.type, effectiveUrl:fetched.url }];
   built.push({ ...asset, variants });
   console.log(`Archived ${asset.id} ${size.width}×${size.height} -> assets/archive/${filename}`);
   await sleep(900);
 }
-await writeFile(path.join(outputDir, 'wwe-aew-star-manifest.json'), `${JSON.stringify({ version: manifest.version, builtAt: new Date().toISOString(), assets: built }, null, 2)}\n`);
-console.log(`Archived ${built.length} rights-approved WWE/AEW champion photographs with six total Wikimedia requests.`);
+await writeFile(path.join(outputDir, 'wwe-aew-star-manifest.json'), `${JSON.stringify({ version:manifest.version, builtAt:new Date().toISOString(), assets:built }, null, 2)}\n`);
+console.log(`Archived ${built.length} rights-approved WWE/AEW champion photographs with ${built.length} total Wikimedia requests.`);
