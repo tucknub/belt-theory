@@ -62,13 +62,18 @@ await sleep(2500);
 for (const asset of manifest.assets) {
   const fetched = await fetchWithRetry(asset.originalUrl, asset.id);
   const size = dimensions(fetched.bytes, fetched.type);
-  if (size.width !== asset.originalWidth) throw new Error(`${asset.id}: expected original width ${asset.originalWidth}, received ${size.width}`);
+  const directMatch = size.width === asset.originalWidth && (!asset.originalHeight || size.height === asset.originalHeight);
+  const orientationMatch = Boolean(asset.originalHeight) && size.width === asset.originalHeight && size.height === asset.originalWidth;
+  if (!directMatch && !orientationMatch) {
+    const expected = asset.originalHeight ? `${asset.originalWidth}×${asset.originalHeight} (or EXIF-transposed)` : `${asset.originalWidth}px wide`;
+    throw new Error(`${asset.id}: expected ${expected}, received ${size.width}×${size.height}`);
+  }
   const requestedWidth = asset.originalWidth;
   const filename = `${asset.slug}-${requestedWidth}.${asset.extension}`;
   await writeFile(path.join(outputDir, filename), fetched.bytes);
-  const variants = [{ requestedWidth, filename, width:size.width, height:size.height, bytes:fetched.bytes.length, sha256:createHash('sha256').update(fetched.bytes).digest('hex'), contentType:fetched.type, effectiveUrl:fetched.url }];
+  const variants = [{ requestedWidth, filename, width:size.width, height:size.height, displayWidth:asset.originalWidth, displayHeight:asset.originalHeight || null, orientationTransposed:orientationMatch, bytes:fetched.bytes.length, sha256:createHash('sha256').update(fetched.bytes).digest('hex'), contentType:fetched.type, effectiveUrl:fetched.url }];
   built.push({ ...asset, variants });
-  console.log(`Archived ${asset.id} ${size.width}×${size.height} -> assets/archive/${filename}`);
+  console.log(`Archived ${asset.id} ${size.width}×${size.height}${orientationMatch ? ' (EXIF display orientation preserved)' : ''} -> assets/archive/${filename}`);
   await sleep(900);
 }
 await writeFile(path.join(outputDir, 'wwe-aew-star-manifest.json'), `${JSON.stringify({ version:manifest.version, builtAt:new Date().toISOString(), assets:built }, null, 2)}\n`);
