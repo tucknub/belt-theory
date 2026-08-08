@@ -30,6 +30,7 @@ jobs:
             /
             /scorecards
             /comparisons
+            /systems-index
             /research
             /methodology
             /about
@@ -40,6 +41,7 @@ jobs:
             /scorecard-tna
             /scorecard-wcw
             /scorecard-ecw
+            /scorecard-roh
             /report-wwe-vs-aew
             /report-tna-vs-aew
             /report-wwe-wcw-ecw
@@ -73,13 +75,41 @@ jobs:
           curl -fsSL "${BASE_URL}/scorecard-tna" | grep -Fq '73.2'
           curl -fsSL "${BASE_URL}/scorecard-wcw" | grep -Fq '90%'
           curl -fsSL "${BASE_URL}/scorecard-ecw" | grep -Fq '61.5%'
+          curl -fsSL "${BASE_URL}/scorecard-roh" | grep -Fq '71.8'
+          curl -fsSL "${BASE_URL}/scorecard-roh" | grep -Fq '42.4%'
           curl -fsSL "${BASE_URL}/report-wwe-vs-aew" | grep -Fq 'AEW 50.2 — WWE 49.8'
           curl -fsSL "${BASE_URL}/report-tna-vs-aew" | grep -Fq 'TNA 51.9 — AEW 48.1'
           curl -fsSL "${BASE_URL}/report-wwe-wcw-ecw" | grep -Fq 'WWE 38.0 — ECW 32.7 — WCW 29.2'
           curl -fsSL "${BASE_URL}/report-did-tna-create-stars" | grep -Fq '51.6 / 48.4'
 
-          echo 'Checking archive image delivery'
+          echo 'Checking current fan-first champion imagery release'
           home="$(curl -fsSL "${BASE_URL}/")"
+          printf '%s' "$home" | grep -Fq 'aj-styles-tna-live-2011'
+          printf '%s' "$home" | grep -Fq 'cody-rhodes-undisputed-champion-2024'
+          printf '%s' "$home" | grep -Fq 'hangman-page-aew-world-champion-2021'
+          printf '%s' "$home" | grep -Fq 'jay-briscoe-roh-world-champion-2013-672.jpg'
+
+          wwe="$(curl -fsSL "${BASE_URL}/scorecard-wwe")"
+          printf '%s' "$wwe" | grep -Fq 'cody-rhodes-undisputed-champion-2024'
+          printf '%s' "$wwe" | grep -Fq 'roman-reigns-universal-champion-2022'
+          printf '%s' "$wwe" | grep -Fq 'damian-priest-world-heavyweight-champion-2024'
+
+          aew="$(curl -fsSL "${BASE_URL}/scorecard-aew")"
+          printf '%s' "$aew" | grep -Fq 'hangman-page-aew-world-champion-2021'
+
+          tna="$(curl -fsSL "${BASE_URL}/scorecard-tna")"
+          printf '%s' "$tna" | grep -Fq 'aj-styles-tna-live-2011'
+          printf '%s' "$tna" | grep -Fq 'gail-kim-tna-champion-2011'
+
+          roh="$(curl -fsSL "${BASE_URL}/scorecard-roh")"
+          printf '%s' "$roh" | grep -Fq 'jay-briscoe-roh-world-champion-2013-672.jpg'
+          printf '%s' "$roh" | grep -Fq 'ROH WORLD CHAMPION · 2013'
+
+          matchup="$(curl -fsSL "${BASE_URL}/report-wwe-vs-aew")"
+          printf '%s' "$matchup" | grep -Fq 'cody-rhodes-undisputed-champion-portrait-2024'
+          printf '%s' "$matchup" | grep -Fq 'hangman-page-aew-world-champion-2021'
+
+          echo 'Checking archive image delivery'
           first_asset="$(printf '%s' "$home" | grep -oE 'assets/archive/[^" ]+' | head -n 1 || true)"
           if [[ -z "$first_asset" ]]; then
             echo 'No self-hosted archive image found on homepage'
@@ -99,4 +129,4 @@ jobs:
             exit 1
           fi
 
-          echo 'Production smoke test passed.'
+          echo 'Production smoke test passed: current fan-first champion imagery release is live.'
