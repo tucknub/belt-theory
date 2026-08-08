@@ -1,0 +1,2 @@
+Deploy current Belt Theory main to Cloudflare Workers.
+Requested 2026-08-08 after strict live audit detected stale production.
