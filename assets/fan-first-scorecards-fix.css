@@ -1,0 +1,4 @@
+
+/* Visual QA fix: keep authentic hero photography inside the composition, not behind the section background. */
+.ff-score-hero{isolation:isolate}.ff-score-hero-media{z-index:0}.ff-score-hero-fade{z-index:1;pointer-events:none;background:linear-gradient(90deg,#050505 0 34%,rgba(5,5,5,.86) 43%,rgba(5,5,5,.32) 64%,rgba(5,5,5,.12) 100%),linear-gradient(180deg,rgba(5,5,5,.04) 38%,rgba(5,5,5,.22) 68%,#050505 100%)}.ff-score-hero-grid{position:relative;z-index:2}.ff-score-hero>.ff-photo-credit{z-index:3}.ff-score-hero-media img{filter:saturate(.82) contrast(1.08) brightness(.9)}
+@media(max-width:760px){.ff-score-hero-media{left:18%;opacity:.62}.ff-score-hero-fade{background:linear-gradient(90deg,#050505 0 18%,rgba(5,5,5,.62) 67%,rgba(5,5,5,.34)),linear-gradient(180deg,rgba(5,5,5,.08) 24%,rgba(5,5,5,.48) 58%,#050505 91%)}.ff-score-hero-grid{align-content:end}.ff-score-highlight{background:rgba(7,7,7,.82)}}
