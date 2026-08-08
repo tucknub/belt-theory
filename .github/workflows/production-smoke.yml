@@ -1,0 +1,98 @@
+name: Production Smoke Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - production-smoke-trigger.txt
+      - .github/workflows/production-smoke.yml
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BASE_URL: https://belt-theory.tucknub.workers.dev
+    steps:
+      - name: Check live production site
+        shell: bash
+        run: |
+          set -euo pipefail
+          pages=(
+            / 
+            /scorecards.html
+            /comparisons.html
+            /research.html
+            /methodology.html
+            /about.html
+            /update-policy.html
+            /image-credits.html
+            /scorecard-wwe.html
+            /scorecard-aew.html
+            /scorecard-tna.html
+            /scorecard-wcw.html
+            /scorecard-ecw.html
+            /report-wwe-vs-aew.html
+            /report-tna-vs-aew.html
+            /report-wwe-wcw-ecw.html
+            /report-did-tna-create-stars.html
+          )
+
+          fetch_ok() {
+            local url="$1"
+            for attempt in 1 2 3 4 5 6; do
+              code="$(curl -sS -L -o /tmp/page.html -w '%{http_code}' --connect-timeout 10 --max-time 30 "$url" || true)"
+              if [[ "$code" == "200" ]]; then
+                return 0
+              fi
+              echo "Attempt $attempt: $url returned $code"
+              sleep $((attempt * 5))
+            done
+            return 1
+          }
+
+          for path in "${pages[@]}"; do
+            url="${BASE_URL}${path}"
+            echo "Checking $url"
+            fetch_ok "$url"
+            grep -qi '<html' /tmp/page.html
+            grep -qi 'Belt Theory' /tmp/page.html
+          done
+
+          echo 'Checking canonical production findings'
+          curl -fsSL "${BASE_URL}/scorecard-wwe.html" | grep -Fq '55.8'
+          curl -fsSL "${BASE_URL}/scorecard-aew.html" | grep -Fq '68.2'
+          curl -fsSL "${BASE_URL}/scorecard-tna.html" | grep -Fq '73.2'
+          curl -fsSL "${BASE_URL}/scorecard-wcw.html" | grep -Fq '90%'
+          curl -fsSL "${BASE_URL}/scorecard-ecw.html" | grep -Fq '61.5%'
+          curl -fsSL "${BASE_URL}/report-wwe-vs-aew.html" | grep -Fq 'AEW 50.2 — WWE 49.8'
+          curl -fsSL "${BASE_URL}/report-tna-vs-aew.html" | grep -Fq 'TNA 51.9 — AEW 48.1'
+          curl -fsSL "${BASE_URL}/report-wwe-wcw-ecw.html" | grep -Fq 'WWE 38.0 — ECW 32.7 — WCW 29.2'
+          curl -fsSL "${BASE_URL}/report-did-tna-create-stars.html" | grep -Fq '51.6 / 48.4'
+
+          echo 'Checking archive image delivery'
+          home="$(curl -fsSL "${BASE_URL}/")"
+          first_asset="$(printf '%s' "$home" | grep -oE 'assets/archive/[^" ]+' | head -n 1 || true)"
+          if [[ -z "$first_asset" ]]; then
+            echo 'No self-hosted archive image found on homepage'
+            exit 1
+          fi
+          curl -fsSI "${BASE_URL}/${first_asset}" | grep -qiE '^content-type: image/'
+
+          echo 'Checking security headers'
+          headers="$(curl -fsSI "${BASE_URL}/")"
+          printf '%s\n' "$headers" | grep -qi '^x-content-type-options:'
+          printf '%s\n' "$headers" | grep -qi '^referrer-policy:'
+
+          echo 'Checking 404 behavior'
+          missing_code="$(curl -sS -o /tmp/missing.html -w '%{http_code}' "${BASE_URL}/definitely-not-a-real-belt-theory-page" || true)"
+          if [[ "$missing_code" != "404" ]]; then
+            echo "Expected 404, got $missing_code"
+            exit 1
+          fi
+
+          echo 'Production smoke test passed.'
