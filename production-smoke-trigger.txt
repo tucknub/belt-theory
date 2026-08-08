@@ -1,1 +1,2 @@
 Trigger production smoke test for Cloudflare Workers deployment.
+Audit run: 2026-08-08 verify post-TNA/WWE/AEW/ROH visual release from main 5aa56f5.
