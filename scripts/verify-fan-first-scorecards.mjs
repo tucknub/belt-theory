@@ -6,11 +6,11 @@ const root=path.resolve(process.argv[2]||path.join(here,'..','dist'));
 const failures=[];
 const specs={
  'scorecard-wwe.html':['More orderly. More concentrated.','55.8','93.6%','8 / 8'],
- 'scorecard-aew.html':['Sharp crown. Crowded middle.','68.2','5 / 10','82.1'],
+ 'scorecard-aew.html':['Sharp crown. Crowded middle.','68.2','Only half of AEW’s men’s world champions','82.1'],
  'scorecard-tna.html':['Strong ideas. Too many resets.','73.2','51.6%','21 / 46'],
  'scorecard-wcw.html':['Great ladder. Bad finish.','90%','9 / 10','64.8%'],
  'scorecard-ecw.html':['Small system. Clear jobs.','61.5%','>6<','4.9%'],
- 'scorecard-roh.html':['Stable crown. Hidden tag ladder.','71.8','14 / 33','42.4%']
+ 'scorecard-roh.html':['Stable crown. Hidden tag ladder.','71.8','Fourteen of 33 unique World champions','42.4%']
 };
 for(const [file,needles] of Object.entries(specs)){
  const html=await readFile(path.join(root,file),'utf8');
