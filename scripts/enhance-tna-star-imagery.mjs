@@ -20,10 +20,10 @@ function credit(a) {
   return `<a href="${esc(a.sourcePage)}" rel="noreferrer" target="_blank">${esc(a.shortCredit)}</a>`;
 }
 function setOnce(html, pattern, replacement, label) {
-  let count = 0;
-  const next = html.replace(pattern, (...args) => { count += 1; return typeof replacement === 'function' ? replacement(...args) : replacement; });
-  if (count !== 1) throw new Error(`${label}: expected one replacement, got ${count}`);
-  return next;
+  const flags = pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`;
+  const matches = [...html.matchAll(new RegExp(pattern.source, flags))];
+  if (matches.length !== 1) throw new Error(`${label}: expected one replacement, got ${matches.length}`);
+  return html.replace(pattern, replacement);
 }
 
 const aj = asset('BT-TNA-STAR-001');
