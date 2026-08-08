@@ -1,0 +1,57 @@
+name: Deploy Belt Theory Worker
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - production-deploy-trigger.txt
+      - .github/workflows/deploy-worker.yml
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Check Cloudflare credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${CLOUDFLARE_API_TOKEN:-}" ]]; then
+            echo 'CLOUDFLARE_API_TOKEN is not configured in GitHub Actions secrets.'
+            exit 1
+          fi
+          if [[ -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]]; then
+            echo 'CLOUDFLARE_ACCOUNT_ID is not configured in GitHub Actions secrets.'
+            exit 1
+          fi
+          echo 'Cloudflare deployment credentials are configured.'
+
+      - name: Check out current main
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build Belt Theory
+        run: npm run build
+
+      - name: Deploy current build to Cloudflare Workers
+        run: npx wrangler deploy
+
+      - name: Confirm deployment
+        run: |
+          echo 'Belt Theory deployed from GitHub main to Cloudflare Workers.'
+          echo 'Production: https://belt-theory.tucknub.workers.dev/'
