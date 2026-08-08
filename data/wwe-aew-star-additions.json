@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "assets": [
     {
       "id": "BT-WWE-STAR-004",
@@ -16,9 +16,10 @@
       "alt": "Cody Rhodes with the Undisputed WWE Championship pointing toward fans at a Birmingham house show in April 2024.",
       "extension": "jpg",
       "originalWidth": 1816,
+      "originalHeight": 4032,
       "widths": [1816],
       "defaultWidth": 1816,
-      "changes": "Original-resolution Commons file self-hosted; CSS crop and tonal treatment only, with no retouching or generative alteration of the photographed wrestler or championship.",
+      "changes": "Original-resolution Commons file self-hosted; the JPEG uses orientation metadata so its stored raster dimensions are transposed. Belt Theory preserves the file unchanged and applies CSS crop and tonal treatment only, with no retouching or generative alteration of the photographed wrestler or championship.",
       "role": "WWE vs AEW comparison hero portrait"
     }
   ]
