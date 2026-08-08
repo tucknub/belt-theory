@@ -1,0 +1,83 @@
+{
+  "version": "1.1",
+  "assets": [
+    {
+      "id": "BT-WWE-STAR-001", "promotion": "WWE", "slug": "cody-rhodes-undisputed-champion-2024",
+      "remoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cody%20Rhodes%20with%20his%20Undisputed%20Championship%20%28Birmingham%20UK%2C%20April%202024%29%20%282%29.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Cody_Rhodes_with_his_Undisputed_Championship_%28Birmingham_UK%2C_April_2024%29_%282%29.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Cody_Rhodes_with_his_Undisputed_Championship_(Birmingham_UK,_April_2024)_(2).jpg",
+      "creator": "Mechanical Elephant", "license": "CC0 1.0", "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "caption": "Cody Rhodes with the Undisputed WWE Championship at a WWE house show in Birmingham — April 17, 2024.",
+      "shortCredit": "Cody Rhodes · WWE Birmingham 2024 · Mechanical Elephant · CC0",
+      "alt": "Cody Rhodes kissing the Undisputed WWE Championship before a title defense in Birmingham in April 2024.",
+      "extension": "jpg", "originalWidth": 2400, "widths": [2400], "defaultWidth": 2400,
+      "changes": "Original-resolution Commons file self-hosted; CSS crop and tonal treatment only, with no retouching or generative alteration of the photographed wrestler or championship.",
+      "role": "HHH-era WWE champion / primary WWE editorial hero"
+    },
+    {
+      "id": "BT-WWE-STAR-002", "promotion": "WWE", "slug": "roman-reigns-universal-champion-2022",
+      "remoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Universal%20Champion%20Roman%20Reigns%20WWE%20Live%20event%2001-23-2022.jpeg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Universal_Champion_Roman_Reigns_WWE_Live_event_01-23-2022.jpeg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Universal_Champion_Roman_Reigns_WWE_Live_event_01-23-2022.jpeg",
+      "creator": "Jason Lykens", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "caption": "Roman Reigns with the WWE Universal Championship at a WWE Live event in Huntington, West Virginia — January 23, 2022.",
+      "shortCredit": "Roman Reigns · WWE Live 2022 · Jason Lykens · CC BY-SA 4.0",
+      "alt": "Roman Reigns carrying the WWE Universal Championship at a WWE Live event in January 2022.",
+      "extension": "jpeg", "originalWidth": 576, "widths": [576], "defaultWidth": 576,
+      "changes": "Original-resolution Commons file self-hosted and framed with CSS only; the wrestler and championship are not retouched or generatively altered.",
+      "role": "late-Vince matched-window world-title concentration illustration"
+    },
+    {
+      "id": "BT-WWE-STAR-003", "promotion": "WWE", "slug": "damian-priest-world-heavyweight-champion-2024",
+      "remoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Damian%20Priest%20WHC%20-%20WWE%20Live%20Birmingham%20April%202024.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/Damian_Priest_WHC_-_WWE_Live_Birmingham_April_2024.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Damian_Priest_WHC_-_WWE_Live_Birmingham_April_2024.jpg",
+      "creator": "Zippo9310", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "caption": "Damian Priest as World Heavyweight Champion at a WWE house show in Birmingham — April 17, 2024.",
+      "shortCredit": "Damian Priest · WWE WHC 2024 · Zippo9310 · CC BY-SA 4.0",
+      "alt": "Damian Priest as WWE World Heavyweight Champion at a Birmingham house show in April 2024.",
+      "extension": "jpg", "originalWidth": 2002, "widths": [2002], "defaultWidth": 2002,
+      "changes": "Original-resolution Commons file self-hosted; CSS crop and tonal treatment only, with no retouching or generative alteration of the photographed wrestler or championship.",
+      "role": "HHH-era second world-title architecture illustration"
+    },
+    {
+      "id": "BT-AEW-STAR-001", "promotion": "AEW", "slug": "hangman-page-aew-world-champion-2021",
+      "remoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/All%20Elite%20Wrestling%20World%20Champion%20-%20Hangman%20Adam%20Page.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/4/45/All_Elite_Wrestling_World_Champion_-_Hangman_Adam_Page.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:All_Elite_Wrestling_World_Champion_-_Hangman_Adam_Page.jpg",
+      "creator": "All Elite Wrestling", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "caption": "Hangman Adam Page photographed as AEW World Champion — November 13, 2021.",
+      "shortCredit": "Hangman Page · AEW World Champion · AEW · CC BY-SA 4.0",
+      "alt": "Hangman Adam Page posing with the AEW World Championship in 2021.",
+      "extension": "jpg", "originalWidth": 1600, "widths": [1600], "defaultWidth": 1600,
+      "changes": "Original-resolution Commons file self-hosted and framed with CSS only; the photographed wrestler and championship remain unretouched. Original release confirmed by Wikimedia VRT.",
+      "role": "AEW world-title identity / primary AEW editorial hero"
+    },
+    {
+      "id": "BT-AEW-STAR-002", "promotion": "AEW", "slug": "swerve-strickland-aew-world-champion-2024",
+      "remoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Swerve%20Strickland%20as%20AEW%20World%20Champion%2C%20August%202024.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Swerve_Strickland_as_AEW_World_Champion%2C_August_2024.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Swerve_Strickland_as_AEW_World_Champion,_August_2024.jpg",
+      "creator": "McPhail", "license": "CC0 1.0", "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "caption": "Swerve Strickland as AEW World Champion at All In — August 25, 2024.",
+      "shortCredit": "Swerve Strickland · AEW All In 2024 · McPhail · CC0",
+      "alt": "Swerve Strickland photographed as AEW World Champion at All In in August 2024.",
+      "extension": "jpg", "originalWidth": 572, "widths": [572], "defaultWidth": 572,
+      "changes": "Original-resolution Commons file self-hosted and framed with CSS only; the wrestler and championship are not retouched or generatively altered.",
+      "role": "modern AEW world champion / matched comparison hero"
+    },
+    {
+      "id": "BT-AEW-STAR-003", "promotion": "AEW", "slug": "cm-punk-jon-moxley-aew-world-champions-2022",
+      "remoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/AEW%20World%20Champions%20CM%20Punk%20and%20Jon%20Moxley%208-17-2022.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/AEW_World_Champions_CM_Punk_and_Jon_Moxley_8-17-2022.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:AEW_World_Champions_CM_Punk_and_Jon_Moxley_8-17-2022.jpg",
+      "creator": "JDC808", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "caption": "Interim AEW World Champion Jon Moxley and lineal AEW World Champion CM Punk on Dynamite — August 17, 2022.",
+      "shortCredit": "Moxley & Punk · AEW Dynamite 2022 · JDC808 · CC BY-SA 4.0",
+      "alt": "Jon Moxley and CM Punk holding AEW World Championship belts during Dynamite in August 2022.",
+      "extension": "jpg", "originalWidth": 1638, "widths": [1638], "defaultWidth": 1638,
+      "changes": "Original-resolution Commons file self-hosted; CSS crop and tonal treatment only, with no retouching or generative alteration of the photographed wrestlers or championship belts.",
+      "role": "AEW world-title governance and championship-history illustration"
+    }
+  ]
+}

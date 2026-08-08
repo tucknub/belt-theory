@@ -1,0 +1,26 @@
+{
+  "version": "1.1",
+  "assets": [
+    {
+      "id": "BT-WWE-STAR-004",
+      "promotion": "WWE",
+      "slug": "cody-rhodes-undisputed-champion-portrait-2024",
+      "remoteSrc": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cody%20Rhodes%20with%20his%20Undisputed%20Championship%20%28Birmingham%20UK%2C%20April%202024%29%20%281%29.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/1/17/Cody_Rhodes_with_his_Undisputed_Championship_%28Birmingham_UK%2C_April_2024%29_%281%29.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Cody_Rhodes_with_his_Undisputed_Championship_(Birmingham_UK,_April_2024)_(1).jpg",
+      "creator": "Mechanical Elephant",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "caption": "Cody Rhodes pointing to fans while carrying the Undisputed WWE Championship at a Birmingham house show — April 17, 2024.",
+      "shortCredit": "Cody Rhodes · WWE Birmingham 2024 · Mechanical Elephant · CC0",
+      "alt": "Cody Rhodes with the Undisputed WWE Championship pointing toward fans at a Birmingham house show in April 2024.",
+      "extension": "jpg",
+      "originalWidth": 1816,
+      "originalHeight": 4032,
+      "widths": [1816],
+      "defaultWidth": 1816,
+      "changes": "Original-resolution Commons file self-hosted; the JPEG uses orientation metadata so its stored raster dimensions are transposed. Belt Theory preserves the file unchanged and applies CSS crop and tonal treatment only, with no retouching or generative alteration of the photographed wrestler or championship.",
+      "role": "WWE vs AEW comparison hero portrait"
+    }
+  ]
+}
