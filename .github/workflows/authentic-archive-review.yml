@@ -5,17 +5,19 @@ on:
   push:
     branches:
       - main
+      - feature/roh-scorecard-v1
       - redesign/authentic-archive-v1
     paths:
       - 'build.sh'
       - 'package.json'
       - 'prototype/**'
-      - 'data/archive-*.json'
+      - 'data/**'
       - 'scripts/build-*.mjs'
+      - 'scripts/fetch-*.mjs'
       - 'scripts/finalize-*.mjs'
       - 'scripts/retrofit-*.mjs'
       - 'scripts/verify-*.mjs'
-      - 'IMAGE_RIGHTS_LEDGER.csv'
+      - '*IMAGE_RIGHTS_LEDGER.csv'
       - 'AI_DESIGN_ASSET_LEDGER.csv'
       - 'ARCHIVE_SOURCE_AUDIT.md'
       - '*_RETROFIT_AUDIT.md'
@@ -31,13 +33,14 @@ on:
       - 'build.sh'
       - 'package.json'
       - 'prototype/**'
-      - 'data/archive-*.json'
+      - 'data/**'
       - 'scripts/*archive*.mjs'
       - 'scripts/build-*.mjs'
+      - 'scripts/fetch-*.mjs'
       - 'scripts/finalize-*.mjs'
       - 'scripts/retrofit-*.mjs'
       - 'scripts/verify-*.mjs'
-      - 'IMAGE_RIGHTS_LEDGER.csv'
+      - '*IMAGE_RIGHTS_LEDGER.csv'
       - 'AI_DESIGN_ASSET_LEDGER.csv'
       - 'ARCHIVE_SOURCE_AUDIT.md'
       - '*_RETROFIT_AUDIT.md'
@@ -68,10 +71,12 @@ jobs:
       - name: Verify generated release
         run: |
           test -f dist/assets/archive/manifest.json
+          test -f dist/assets/archive/roh-manifest.json
           test -f dist/image-credits.html
           test -f dist/systems-index.html
           test -f dist/sitemap.xml
           test -f dist/robots.txt
+          test -f dist/scorecard-roh.html
           test -f dist/scorecard-wwe.html
           test -f dist/scorecard-aew.html
           test -f dist/scorecard-tna.html
@@ -81,22 +86,26 @@ jobs:
           test -f dist/report-tna-vs-aew.html
           test -f dist/report-wwe-wcw-ecw.html
           test -f dist/report-did-tna-create-stars.html
-          node -e "const m=require('./dist/assets/archive/manifest.json'); if(m.assets.length!==8) process.exit(1); console.log('Verified',m.assets.length,'archival assets')"
-          test "$(find dist -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')" = "19"
-          test "$(grep -c '<url>' dist/sitemap.xml)" = "18"
+          node -e "const a=require('./dist/assets/archive/manifest.json'); const r=require('./dist/assets/archive/roh-manifest.json'); if(a.assets.length!==8||r.assets.length!==2) process.exit(1); console.log('Verified',a.assets.length+r.assets.length,'archival assets')"
+          test "$(find dist -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')" = "20"
+          test "$(grep -c '<url>' dist/sitemap.xml)" = "19"
           grep -q 'https://belt-theory.tucknub.workers.dev/' dist/sitemap.xml
-          grep -q 'No fake master ranking.' dist/systems-index.html
+          grep -q 'Six promotion systems.' dist/systems-index.html
+          grep -q 'Open ROH scorecard' dist/systems-index.html
+          grep -q '71.8' dist/scorecard-roh.html
+          grep -q '57.6%' dist/scorecard-roh.html
 
       - name: Summarize release output
         run: |
           echo '## Belt Theory production verification' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Production pages: 19' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Championship Systems Index: v1.0' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Production pages: 20' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Championship Systems Index: v1.0 · 6 promotion systems' >> "$GITHUB_STEP_SUMMARY"
+          echo '- ROH internal diagnostic: 71.8' >> "$GITHUB_STEP_SUMMARY"
           echo '- Canonical production URL: https://belt-theory.tucknub.workers.dev/' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Indexable sitemap pages: 18' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Rights-approved assets: 8' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Authentic surfaces: homepage, all five scorecards, all three comparison reports, TNA investigation' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Browser image hotlinks and prohibited historical imagery: rejected by build verification' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Indexable sitemap pages: 19' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Rights-approved assets: 10 (8 sealed archive + 2 ROH)' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authentic surfaces: homepage, six promotion scorecards, three comparison reports, TNA investigation' >> "$GITHUB_STEP_SUMMARY"
+          echo '- False universal ranking: prohibited by Systems Index and ROH publication verification' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload complete preview artifact
         uses: actions/upload-artifact@v4

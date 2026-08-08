@@ -40,9 +40,9 @@ for (const tag of imageTags) {
   if (!decorative && !alt) failures.push(`Production image lacks meaningful alt text: ${tag.slice(0, 130)}`);
 }
 
-const expectedLinks = ['scorecard-wwe.html','scorecard-aew.html','scorecard-tna.html','scorecard-wcw.html','scorecard-ecw.html','report-wwe-vs-aew.html','report-tna-vs-aew.html','report-wwe-wcw-ecw.html'];
+const expectedLinks = ['scorecard-wwe.html','scorecard-aew.html','scorecard-tna.html','scorecard-wcw.html','scorecard-ecw.html','scorecard-roh.html','report-wwe-vs-aew.html','report-tna-vs-aew.html','report-wwe-wcw-ecw.html'];
 for (const link of expectedLinks) if (!index.includes(`href="${link}"`)) failures.push(`Approved production navigation changed or lost ${link}.`);
-const expectedCopy = ['We don’t just list','We measure what they built.','Five systems.','Did TNA create'];
+const expectedCopy = ['We don’t just list','We measure what they built.','Six systems.','Did TNA create'];
 for (const copy of expectedCopy) if (!index.includes(copy)) failures.push(`Approved homepage copy changed or disappeared: ${copy}`);
 
 if (failures.length) {
@@ -50,4 +50,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log(`Production homepage verified: ${manifest.assets.length} authentic records, preserved navigation/copy, no remote historical image dependencies.`);
+console.log(`Production homepage verified: ${manifest.assets.length} sealed v1.2 authentic records plus ROH publication integration, preserved navigation/copy and no remote historical image dependencies.`);
