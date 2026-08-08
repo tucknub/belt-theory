@@ -9,17 +9,9 @@ const outputRoot = path.resolve(process.argv[2] || path.join(root, 'dist'));
 const outputDir = path.join(outputRoot, 'assets', 'archive');
 const manifest = JSON.parse(await readFile(path.join(root, 'data', 'wwe-aew-star-assets.json'), 'utf8'));
 const userAgent = 'BeltTheory/1.4 (+https://github.com/tucknub/belt-theory; WWE-AEW champion archive build)';
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 await mkdir(outputDir, { recursive: true });
 
-function specialRedirect(asset, width) {
-  const sep = asset.remoteSrc.includes('?') ? '&' : '?';
-  return `${asset.remoteSrc}${sep}width=${width}`;
-}
-function thumbUrl(asset, width) {
-  const u = new URL(asset.originalUrl);
-  const filename = u.pathname.split('/').at(-1);
-  return `${u.origin}${u.pathname.replace('/wikipedia/commons/', '/wikipedia/commons/thumb/')}/${width}px-${filename}`;
-}
 function dimensions(bytes, type) {
   if (type.includes('png')) return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
   if (type.includes('jpeg') || type.includes('jpg')) {
@@ -38,7 +30,8 @@ function dimensions(bytes, type) {
   }
   throw new Error(`Could not read image dimensions for ${type}`);
 }
-async function fetchImage(url) {
+
+async function fetchOnce(url) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 30000);
   try {
@@ -46,7 +39,11 @@ async function fetchImage(url) {
       redirect: 'follow', cache: 'no-store', signal: controller.signal,
       headers: { 'user-agent': userAgent, accept: 'image/jpeg,image/png,image/*;q=.8' }
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    if (!res.ok) {
+      const error = new Error(`HTTP ${res.status}`);
+      error.status = res.status;
+      throw error;
+    }
     const type = (res.headers.get('content-type') || '').split(';')[0].toLowerCase();
     if (!type.startsWith('image/')) throw new Error(`Unexpected content type ${type}`);
     const bytes = Buffer.from(await res.arrayBuffer());
@@ -55,29 +52,37 @@ async function fetchImage(url) {
   } finally { clearTimeout(timer); }
 }
 
-const built = [];
-for (const asset of manifest.assets) {
-  const variants = [];
-  for (const requestedWidth of asset.widths) {
-    const candidates = requestedWidth >= asset.originalWidth
-      ? [asset.originalUrl, specialRedirect(asset, requestedWidth)]
-      : [thumbUrl(asset, requestedWidth), specialRedirect(asset, requestedWidth), asset.originalUrl];
-    let result = null; const errors = [];
-    for (const url of [...new Set(candidates)]) {
-      try {
-        const fetched = await fetchImage(url);
-        const size = dimensions(fetched.bytes, fetched.type);
-        if (size.width < Math.min(requestedWidth, asset.originalWidth)) throw new Error(`Received ${size.width}px for requested ${requestedWidth}px`);
-        result = { ...fetched, ...size }; break;
-      } catch (error) { errors.push(`${url}: ${error.message}`); }
+async function fetchWithRetry(url, label) {
+  const errors = [];
+  for (let attempt = 1; attempt <= 5; attempt += 1) {
+    try { return await fetchOnce(url); }
+    catch (error) {
+      errors.push(`attempt ${attempt}: ${error.message}`);
+      if (![429, 500, 502, 503, 504].includes(error.status) && error.name !== 'AbortError') break;
+      const wait = 1500 * attempt;
+      console.log(`${label}: ${error.message}; retrying in ${wait}ms`);
+      await sleep(wait);
     }
-    if (!result) throw new Error(`Unable to archive ${asset.id} ${requestedWidth}px:\n${errors.join('\n')}`);
-    const filename = `${asset.slug}-${requestedWidth}.${asset.extension}`;
-    await writeFile(path.join(outputDir, filename), result.bytes);
-    variants.push({ requestedWidth, filename, width: result.width, height: result.height, bytes: result.bytes.length, sha256: createHash('sha256').update(result.bytes).digest('hex'), contentType: result.type, effectiveUrl: result.url });
-    console.log(`Archived ${asset.id} ${result.width}×${result.height} -> assets/archive/${filename}`);
   }
+  throw new Error(`${label}: ${errors.join('; ')}`);
+}
+
+const built = [];
+await sleep(2500);
+for (const asset of manifest.assets) {
+  const fetched = await fetchWithRetry(asset.originalUrl, asset.id);
+  const size = dimensions(fetched.bytes, fetched.type);
+  if (size.width !== asset.originalWidth) throw new Error(`${asset.id}: expected original width ${asset.originalWidth}, received ${size.width}`);
+  const requestedWidth = asset.originalWidth;
+  const filename = `${asset.slug}-${requestedWidth}.${asset.extension}`;
+  await writeFile(path.join(outputDir, filename), fetched.bytes);
+  const variants = [{
+    requestedWidth, filename, width: size.width, height: size.height, bytes: fetched.bytes.length,
+    sha256: createHash('sha256').update(fetched.bytes).digest('hex'), contentType: fetched.type, effectiveUrl: fetched.url
+  }];
   built.push({ ...asset, variants });
+  console.log(`Archived ${asset.id} ${size.width}×${size.height} -> assets/archive/${filename}`);
+  await sleep(900);
 }
 await writeFile(path.join(outputDir, 'wwe-aew-star-manifest.json'), `${JSON.stringify({ version: manifest.version, builtAt: new Date().toISOString(), assets: built }, null, 2)}\n`);
-console.log(`Archived ${built.length} rights-approved WWE/AEW champion photographs.`);
+console.log(`Archived ${built.length} rights-approved WWE/AEW champion photographs with six total Wikimedia requests.`);
