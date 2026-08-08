@@ -7,6 +7,10 @@ on:
     paths:
       - production-smoke-trigger.txt
       - .github/workflows/production-smoke.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - production-smoke-trigger.txt
 
 permissions:
   contents: read
@@ -23,23 +27,23 @@ jobs:
         run: |
           set -euo pipefail
           pages=(
-            / 
-            /scorecards.html
-            /comparisons.html
-            /research.html
-            /methodology.html
-            /about.html
-            /update-policy.html
-            /image-credits.html
-            /scorecard-wwe.html
-            /scorecard-aew.html
-            /scorecard-tna.html
-            /scorecard-wcw.html
-            /scorecard-ecw.html
-            /report-wwe-vs-aew.html
-            /report-tna-vs-aew.html
-            /report-wwe-wcw-ecw.html
-            /report-did-tna-create-stars.html
+            /
+            /scorecards
+            /comparisons
+            /research
+            /methodology
+            /about
+            /update-policy
+            /image-credits
+            /scorecard-wwe
+            /scorecard-aew
+            /scorecard-tna
+            /scorecard-wcw
+            /scorecard-ecw
+            /report-wwe-vs-aew
+            /report-tna-vs-aew
+            /report-wwe-wcw-ecw
+            /report-did-tna-create-stars
           )
 
           fetch_ok() {
@@ -64,15 +68,15 @@ jobs:
           done
 
           echo 'Checking canonical production findings'
-          curl -fsSL "${BASE_URL}/scorecard-wwe.html" | grep -Fq '55.8'
-          curl -fsSL "${BASE_URL}/scorecard-aew.html" | grep -Fq '68.2'
-          curl -fsSL "${BASE_URL}/scorecard-tna.html" | grep -Fq '73.2'
-          curl -fsSL "${BASE_URL}/scorecard-wcw.html" | grep -Fq '90%'
-          curl -fsSL "${BASE_URL}/scorecard-ecw.html" | grep -Fq '61.5%'
-          curl -fsSL "${BASE_URL}/report-wwe-vs-aew.html" | grep -Fq 'AEW 50.2 — WWE 49.8'
-          curl -fsSL "${BASE_URL}/report-tna-vs-aew.html" | grep -Fq 'TNA 51.9 — AEW 48.1'
-          curl -fsSL "${BASE_URL}/report-wwe-wcw-ecw.html" | grep -Fq 'WWE 38.0 — ECW 32.7 — WCW 29.2'
-          curl -fsSL "${BASE_URL}/report-did-tna-create-stars.html" | grep -Fq '51.6 / 48.4'
+          curl -fsSL "${BASE_URL}/scorecard-wwe" | grep -Fq '55.8'
+          curl -fsSL "${BASE_URL}/scorecard-aew" | grep -Fq '68.2'
+          curl -fsSL "${BASE_URL}/scorecard-tna" | grep -Fq '73.2'
+          curl -fsSL "${BASE_URL}/scorecard-wcw" | grep -Fq '90%'
+          curl -fsSL "${BASE_URL}/scorecard-ecw" | grep -Fq '61.5%'
+          curl -fsSL "${BASE_URL}/report-wwe-vs-aew" | grep -Fq 'AEW 50.2 — WWE 49.8'
+          curl -fsSL "${BASE_URL}/report-tna-vs-aew" | grep -Fq 'TNA 51.9 — AEW 48.1'
+          curl -fsSL "${BASE_URL}/report-wwe-wcw-ecw" | grep -Fq 'WWE 38.0 — ECW 32.7 — WCW 29.2'
+          curl -fsSL "${BASE_URL}/report-did-tna-create-stars" | grep -Fq '51.6 / 48.4'
 
           echo 'Checking archive image delivery'
           home="$(curl -fsSL "${BASE_URL}/")"
