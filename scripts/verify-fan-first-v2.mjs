@@ -27,7 +27,8 @@ const homeChecks = [
   ['simple primary nav', '>Promotions<'],
   ['simple compare nav', '>Compare<'],
   ['simple methodology label', '>How it works<'],
-  ['real TNA hero', 'assets/archive/raven-tna-impact-2010-1280.jpg'],
+  ['authentic TNA star wall', 'ff-hero-star-wall'],
+  ['A.J. Styles hero asset', 'assets/archive/aj-styles-tna-live-2011-1280.jpg'],
   ['canonical URL', '<link rel="canonical" href="https://belt-theory.tucknub.workers.dev/">']
 ];
 for (const [label, needle] of homeChecks) if (!home.includes(needle)) failures.push(`Homepage missing ${label}.`);
@@ -43,6 +44,7 @@ const storyChecks = [
   ['19 of 28 durability', '19 / 28'],
   ['plain-English conclusion', 'argument is too simple'],
   ['research receipt', 'Here are the receipts.'],
+  ['authentic TNA story wall', 'ff-article-star-wall'],
   ['canonical URL', '<link rel="canonical" href="https://belt-theory.tucknub.workers.dev/report-did-tna-create-stars">']
 ];
 for (const [label, needle] of storyChecks) if (!story.includes(needle)) failures.push(`TNA story missing ${label}.`);
@@ -63,6 +65,7 @@ for (const page of legacyTechnicalPages) {
 }
 
 if (!css.includes('.ff-story-grid') || !css.includes('.ff-promotion-grid') || !css.includes('.ff-article-hero')) failures.push('fan-first.css: core editorial components missing.');
+if (!css.includes('.ff-hero-star-wall')) failures.push('fan-first.css: TNA star-wall composition missing.');
 if (!css.includes('@media (max-width:820px)')) failures.push('fan-first.css: mobile breakpoint missing.');
 if (!css.includes('prefers-reduced-motion')) failures.push('fan-first.css: reduced-motion support missing.');
 
@@ -71,4 +74,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Fan-first v2 verified: question-first homepage, flagship TNA story, simplified navigation, responsive editorial system and preserved research links.');
+console.log('Fan-first v2 verified: question-first homepage, expanded authentic TNA star imagery, simplified navigation, responsive editorial system and preserved research links.');
