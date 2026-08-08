@@ -1,0 +1,4 @@
+
+/* Header QA: closed details content must not affect intrinsic page width. */
+.ff-mobile-menu:not([open])>nav{display:none!important}
+.ff-mobile-menu[open]>nav{display:grid!important;position:absolute;right:0;top:48px;min-width:240px;padding:10px;background:#101010;border:1px solid var(--ff-line);box-shadow:0 20px 60px #000}
