@@ -7,11 +7,13 @@ on:
       - main
       - feature/roh-scorecard-v1
       - redesign/authentic-archive-v1
+      - redesign/fan-first-v2
     paths:
       - 'build.sh'
       - 'package.json'
       - 'prototype/**'
       - 'data/**'
+      - 'assets/fan-first*.css'
       - 'scripts/build-*.mjs'
       - 'scripts/fetch-*.mjs'
       - 'scripts/finalize-*.mjs'
@@ -34,6 +36,7 @@ on:
       - 'package.json'
       - 'prototype/**'
       - 'data/**'
+      - 'assets/fan-first*.css'
       - 'scripts/*archive*.mjs'
       - 'scripts/build-*.mjs'
       - 'scripts/fetch-*.mjs'
@@ -90,22 +93,27 @@ jobs:
           test "$(find dist -maxdepth 1 -type f -name '*.html' | wc -l | tr -d ' ')" = "20"
           test "$(grep -c '<url>' dist/sitemap.xml)" = "19"
           grep -q 'https://belt-theory.tucknub.workers.dev/' dist/sitemap.xml
-          grep -q 'Six promotion systems.' dist/systems-index.html
-          grep -q 'Open ROH scorecard' dist/systems-index.html
+          grep -q 'Six promotions.' dist/systems-index.html
+          grep -q 'This is a map, not a fake universal ranking.' dist/systems-index.html
+          grep -q 'Ring of Honor' dist/systems-index.html
           grep -q '71.8' dist/scorecard-roh.html
           grep -q '57.6%' dist/scorecard-roh.html
+          grep -q 'Did TNA actually' dist/index.html
+          grep -q 'Wrestling arguments.' dist/comparisons.html
+          grep -q 'Pick a company.' dist/scorecards.html
 
       - name: Summarize release output
         run: |
-          echo '## Belt Theory production verification' >> "$GITHUB_STEP_SUMMARY"
+          echo '## Belt Theory fan-first v2 verification' >> "$GITHUB_STEP_SUMMARY"
           echo '- Production pages: 20' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Championship Systems Index: v1.0 · 6 promotion systems' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Fan-facing publication shell: complete across all root pages' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Promotion systems: WWE · AEW · TNA · WCW · original ECW · ROH' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Direct debate stories: WWE–AEW · TNA–AEW · WWE–WCW–ECW' >> "$GITHUB_STEP_SUMMARY"
           echo '- ROH internal diagnostic: 71.8' >> "$GITHUB_STEP_SUMMARY"
           echo '- Canonical production URL: https://belt-theory.tucknub.workers.dev/' >> "$GITHUB_STEP_SUMMARY"
           echo '- Indexable sitemap pages: 19' >> "$GITHUB_STEP_SUMMARY"
           echo '- Rights-approved assets: 10 (8 sealed archive + 2 ROH)' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Authentic surfaces: homepage, six promotion scorecards, three comparison reports, TNA investigation' >> "$GITHUB_STEP_SUMMARY"
-          echo '- False universal ranking: prohibited by Systems Index and ROH publication verification' >> "$GITHUB_STEP_SUMMARY"
+          echo '- False universal ranking: prohibited by Systems Index and scorecard copy' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload complete preview artifact
         uses: actions/upload-artifact@v4
