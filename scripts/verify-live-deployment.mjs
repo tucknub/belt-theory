@@ -9,9 +9,14 @@ const siteOrigin = (process.env.BELT_THEORY_SITE_ORIGIN || 'https://belt-theory.
 const pages = (await readdir(outputRoot)).filter((name) => name.endsWith('.html')).sort();
 const failures = [];
 
+function canonicalUrl(page) {
+  if (page === 'index.html') return `${siteOrigin}/`;
+  return `${siteOrigin}/${page.replace(/\.html$/i, '')}`;
+}
+
 for (const page of pages) {
   const html = await readFile(path.join(outputRoot, page), 'utf8');
-  const canonical = page === 'index.html' ? `${siteOrigin}/` : `${siteOrigin}/${page}`;
+  const canonical = canonicalUrl(page);
   if (page !== '404.html' && !html.includes(`<link href="${canonical}" rel="canonical"/>`)) failures.push(`${page}: canonical URL missing or incorrect.`);
   if (!html.includes(`<meta content="${canonical}" property="og:url"/>`)) failures.push(`${page}: og:url missing or incorrect.`);
   if (!html.includes(`${siteOrigin}/assets/archive/aew-all-in-2023-1280.jpg`)) failures.push(`${page}: absolute social image missing.`);
@@ -21,7 +26,8 @@ for (const page of pages) {
 const sitemap = await readFile(path.join(outputRoot, 'sitemap.xml'), 'utf8');
 const sitemapUrls = (sitemap.match(/<loc>/g) || []).length;
 if (sitemapUrls !== pages.length - 1) failures.push(`sitemap.xml: expected ${pages.length - 1} URLs, found ${sitemapUrls}.`);
-if (sitemap.includes('/404.html')) failures.push('sitemap.xml: 404 page must not be indexed.');
+if (sitemap.includes('/404')) failures.push('sitemap.xml: 404 page must not be indexed.');
+if (/<loc>[^<]+\.html<\/loc>/i.test(sitemap)) failures.push('sitemap.xml: .html URLs conflict with Workers auto HTML routing.');
 const robots = await readFile(path.join(outputRoot, 'robots.txt'), 'utf8');
 if (!robots.includes(`Sitemap: ${siteOrigin}/sitemap.xml`)) failures.push('robots.txt: production sitemap URL missing.');
 const home = await readFile(path.join(outputRoot, 'index.html'), 'utf8');
@@ -31,10 +37,11 @@ const about = await readFile(path.join(outputRoot, 'about.html'), 'utf8');
 if (!about.includes('Production infrastructure live')) failures.push('about.html: launch roadmap is stale.');
 const deploy = await readFile(path.join(outputRoot, 'DEPLOY.md'), 'utf8');
 if (!deploy.includes('npx wrangler deploy') || !deploy.includes('Cloudflare Workers Static Assets')) failures.push('DEPLOY.md: Workers deployment instructions missing.');
+if (!deploy.includes('extensionless canonical URLs')) failures.push('DEPLOY.md: Workers HTML-routing note missing.');
 
 if (failures.length) {
   console.error('Live deployment verification failed:');
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log(`Live deployment verified: ${pages.length - 1} canonical pages, sitemap, robots and Workers deployment metadata.`);
+console.log(`Live deployment verified: ${pages.length - 1} extensionless canonical pages, sitemap, robots and Workers deployment metadata.`);
