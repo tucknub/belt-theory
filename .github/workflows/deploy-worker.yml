@@ -7,12 +7,17 @@ on:
     paths:
       - production-deploy-trigger.txt
       - .github/workflows/deploy-worker.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - production-deploy-trigger.txt
 
 permissions:
   contents: read
 
 jobs:
   deploy:
+    if: github.event_name != 'pull_request' || github.head_ref == 'deploy/current-main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
